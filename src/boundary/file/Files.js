@@ -2,12 +2,11 @@ import { UploadSingleFile, UploadedFile, UploadedFileContent, UploadedFileErrorH
 
 export default class Files {
     uploadSingleFile(file, userId, callback) {
-        const upload = new UploadSingleFile(file, userId, 'CreateUploadFile', 'UploadedFileErrorHandling');
         new UploadedFileErrorHandling(callback);
         new UploadedFile.CreateUploadFile('UploadedFileErrorHandling', 'ReadUploadedFile');
         new UploadedFile.ReadUploadedFile('UploadedFileErrorHandling', 'CreateUploadedFileContent');
         new UploadedFileContent.CreateUploadedFileContent('UploadedFileErrorHandling');
-        upload.execute(() => {
+        new UploadSingleFile(file, userId, 'CreateUploadFile', 'UploadedFileErrorHandling').execute(() => {
 
         });
     }
