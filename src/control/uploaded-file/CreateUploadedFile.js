@@ -1,8 +1,8 @@
-import { GDSAppLogger, GDSChains } from 'gds-config';
+import { GDSAppLogger, GDSChain } from 'gds-config';
 
 import UploadedFile from '../../entity/UploadedFile';
 
-export default class CreateUploadFile extends GDSChains {
+export default class CreateUploadFile extends GDSChain {
     constructor(error, next) {
         super('CreateUploadFile', Action, next, error);
     }

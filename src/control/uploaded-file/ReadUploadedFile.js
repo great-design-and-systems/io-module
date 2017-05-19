@@ -1,8 +1,8 @@
-import { GDSAppLogger, GDSChains } from 'gds-config';
+import { GDSAppLogger, GDSChain } from 'gds-config';
 
 import fs from 'node-fs';
 
-export default class ReadUploadedFile extends GDSChains {
+export default class ReadUploadedFile extends GDSChain {
     constructor(error, next) {
         super('ReadUploadedFile', Action, next, error);
     }

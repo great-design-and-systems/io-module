@@ -1,6 +1,6 @@
-import { GDSAppLogger, GDSChains } from 'gds-config';
+import { GDSAppLogger, GDSChain } from 'gds-config';
 
-export default class UploadedFileErrorHandling extends GDSChains {
+export default class UploadedFileErrorHandling extends GDSChain {
     constructor(callback) {
         super('UploadedFileErrorHandling', Action, next, error);
     }
