@@ -1,7 +1,7 @@
 import { GDSAppLogger, GDSChain } from 'gds-config';
 
 import UploadedFileContent from '../../entity/UploadedFileContent';
-import fs from 'node-fs';
+import fs from 'fs-extra';
 
 export default class CreateUploadedFileContent extends GDSChain {
     constructor(error, next) {

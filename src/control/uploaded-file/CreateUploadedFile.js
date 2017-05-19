@@ -9,7 +9,6 @@ export default class CreateUploadFile extends GDSChain {
 }
 
 const Action = (context, param, done) => {
-    context.set('path', param.path());
     UploadedFile.create({
         fileName: parent.name(),
         fileType: parent.type(),
@@ -20,6 +19,7 @@ const Action = (context, param, done) => {
             new GDSAppLogger(err).error();
             throw err;
         } else {
+            context.set('path', param.path());
             context.set('uploadedFileId', result._id);
             done();
         }

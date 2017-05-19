@@ -1,8 +1,9 @@
 import Files from './Files';
+import multer from 'multer';
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR || '/uploads';
 export const API = '/api/files/';
-
+const upload = multer({ dest: UPLOAD_DIR });
 export class FileResource {
     constructor(app) {
         const files = new Files();
