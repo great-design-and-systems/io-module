@@ -1,14 +1,15 @@
-import { GDSAppLogger, GDSChain } from 'gds-config';
+import { GDSAppLogger, GDSChains } from 'gds-config';
 
 import UploadedFile from '../../entity/UploadedFile';
 
-export default class CreateUploadFile extends GDSChain {
+export default class CreateUploadFile extends GDSChains {
     constructor(error, next) {
         super('CreateUploadFile', Action, next, error);
     }
 }
 
 const Action = (context, param, done) => {
+    context.set('path', param.path());
     UploadedFile.create({
         fileName: parent.name(),
         fileType: parent.type(),
@@ -19,7 +20,7 @@ const Action = (context, param, done) => {
             new GDSAppLogger(err).error();
             throw err;
         } else {
-            context.set('uploadedFileResult', result);
+            context.set('uploadedFileId', result._id);
             done();
         }
     });

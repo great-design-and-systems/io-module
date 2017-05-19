@@ -1,8 +1,8 @@
-import { GDSAppLogger, GDSChain } from 'gds-config';
+import { GDSAppLogger, GDSChains } from 'gds-config';
 
 import fs from 'node-fs';
 
-export default class ReadUploadedFile extends GDSChain {
+export default class ReadUploadedFile extends GDSChains {
     constructor(error, next) {
         super('ReadUploadedFile', Action, next, error);
     }
@@ -14,7 +14,9 @@ const Action = (context, param, done) => {
             fs.unlink(param.path());
             throw err;
         } else {
-            context.set('filePath', param.path());
+            context.set('contentSequence', 0);
+            context.set('uploadedFileId', param.uploadedFileId());
+            context.set('path', param.path());
             context.set('fileData', fileData);
             done();
         }

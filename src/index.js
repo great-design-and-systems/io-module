@@ -10,12 +10,12 @@ new GDSDatabase().connect((errDB) => {
         console.error(errDB);
     } else {
         new GDSServer(app);
-        new GDSUtil().getLogger(() => {
-            app.listen(PORT, () => {
-                global.gdsLogger.logInfo('Express is listening to port ' + PORT);
-                new IOResource(app);
-            });
-        })
+        //new GDSUtil().getLogger(() => {
+        app.listen(PORT, () => {
+            //      global.gdsLogger.logInfo('Express is listening to port ' + PORT);
+            new IOResource(app);
+        });
+        //})
     }
 });
 

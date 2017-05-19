@@ -1,8 +1,9 @@
-import { GDSAppLogger, GDSChain } from 'gds-config';
+import { GDSAppLogger, GDSChains } from 'gds-config';
 
 import UploadedFileContent from '../../entity/UploadedFileContent';
+import fs from 'node-fs';
 
-export default class CreateUploadedFileContent extends GDSChain {
+export default class CreateUploadedFileContent extends GDSChains {
     constructor(error, next) {
         super('CreateUploadedFileContent', Action, next, error);
     }
@@ -10,15 +11,17 @@ export default class CreateUploadedFileContent extends GDSChain {
 
 const Action = (context, param, done) => {
     UploadedFileContent.create({
-        fileId: param.fileId(),
-        content: param.content(),
+        fileId: param.uploadedFileId(),
+        content: param.fileData(),
         contentSequence: param.contentSequence()
     }, (err, result) => {
         if (err) {
+            fs.unlink(param.path());
             new GDSAppLogger(err).error();
             throw err;
         } else {
-            context.set('uploadedFileContentResult', result);
+            context.set('uploadedFileId', param.uploadedFileId());
+            context.set('uploadedFileContentId', result._id);
             done();
         }
     });

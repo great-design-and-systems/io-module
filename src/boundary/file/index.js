@@ -16,7 +16,7 @@ export class FileResource {
         });
 
         app.post(API + 'upload-single-file/:userId', upload.single('uploadFile'), (req, res) => {
-            files.uploadSingleFile(req.file, req.params.userId, (err, result) => {
+            files.uploadSingleFile(req.file, req.params.userId, (err, fileId) => {
                 if (err) {
                     res.status(500).send({
                         message: 'Error uploading file ' + req.file.originalName
@@ -24,12 +24,12 @@ export class FileResource {
                 } else {
                     res.send({
                         message: 'File has been uploaded',
-                        fileId: result._id,
+                        fileId: fileId,
                         links: {
-                            downloadFile: 'http://' + req.headers.host + API + 'download-file/' + result._id,
-                            post: { updateSingleFileContent: 'http://' + req.headers.host + API + 'update-single-file-content/' + result._id },
+                            downloadFile: 'http://' + req.headers.host + API + 'download-file/' + fileId,
+                            post: { updateSingleFileContent: 'http://' + req.headers.host + API + 'update-single-file-content/' + fileId },
                             delete: {
-                                deleteFile: 'http://' + req.headers.host + API + result._id
+                                deleteFile: 'http://' + req.headers.host + API + fileId
                             }
                         }
                     });

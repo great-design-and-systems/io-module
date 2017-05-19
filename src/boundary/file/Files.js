@@ -6,13 +6,13 @@ export default class Files {
         new UploadedFile.CreateUploadFile('UploadedFileErrorHandling', 'ReadUploadedFile');
         new UploadedFile.ReadUploadedFile('UploadedFileErrorHandling', 'CreateUploadedFileContent');
         new UploadedFileContent.CreateUploadedFileContent('UploadedFileErrorHandling');
-        new UploadSingleFile(file, userId, 'CreateUploadFile', 'UploadedFileErrorHandling').execute(() => {
-
+        new UploadSingleFile(file, userId, 'CreateUploadFile', 'UploadedFileErrorHandling').execute((context) => {
+            callback(undefined, context.uploadedFileId());
         });
     }
 }
 
-function uploadSingleFile(file, userId, callback) {
+/*function uploadSingleFile(file, userId, callback) {
     new CreateUploadFile(file.originalname, file.mimetype, file.size, userId, function (errUploadedFile, uploadedFile) {
         if (errUploadedFile) {
             fs.unlink(file.path);
@@ -49,4 +49,4 @@ function uploadSingleFile(file, userId, callback) {
             });
         }
     });
-}
+}*/
