@@ -1,26 +1,27 @@
 import Files from './Files';
 import multer from 'multer';
 
-const UPLOAD_DIR = process.env.UPLOAD_DIR || '/uploads';
 export const API = '/api/files/';
-const upload = multer({ dest: UPLOAD_DIR });
+const upload = multer({
+    dest: process.env.TEMP_DIR || 'uploads/'
+});
 export class FileResource {
     constructor(app) {
         const files = new Files();
         app.get('/upload-form', (req, res) => {
             res.status(200)
                 .send('<html><body>' +
-                '<form name="upload" method="post" action="api/file/upload-single-file/0001" enctype="multipart/form-data">' +
+                '<form name="upload" method="post" action="api/files/upload-single-file/0001" enctype="multipart/form-data">' +
                 '<input type="file" name="uploadFile">' +
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
         });
 
-        app.post(API + 'upload-single-file/:userId', upload.single('uploadFile'), (req, res) => {
-            files.uploadSingleFile(req.file, req.params.userId, (err, fileId) => {
+        app.post(API + 'upload-single-file/:userId', (req, res) => {
+            files.uploadSingleFile(req.files.uploadFile, req.params.userId, (err, fileId) => {
                 if (err) {
                     res.status(500).send({
-                        message: 'Error uploading file ' + req.file.originalName
+                        message: 'Error uploading file ' + req.files.uploadFile.originalFilename
                     });
                 } else {
                     res.send({

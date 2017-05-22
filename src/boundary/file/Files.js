@@ -1,14 +1,15 @@
-import { UploadSingleFile, UploadedFile, UploadedFileContent, UploadedFileErrorHandling } from '../../control/';
+import UploadSingleFile from '../../control/upload-single-file/';
 
 export default class Files {
     uploadSingleFile(file, userId, callback) {
-        new UploadedFileErrorHandling(callback);
-        new UploadedFile.CreateUploadFile('UploadedFileErrorHandling', 'ReadUploadedFile');
-        new UploadedFile.ReadUploadedFile('UploadedFileErrorHandling', 'CreateUploadedFileContent');
-        new UploadedFileContent.CreateUploadedFileContent('UploadedFileErrorHandling');
-        new UploadSingleFile(file, userId, 'CreateUploadFile', 'UploadedFileErrorHandling').execute((context) => {
-            callback(undefined, context.uploadedFileId());
-        });
+        UploadSingleFile(file, userId, (result) => {
+            if (result.$error) {
+                console.log('error', result.$error());
+                callback(result.$error());
+            } else {
+                callback(undefined, result.uploadedFile());
+            }
+        })
     }
 }
 
