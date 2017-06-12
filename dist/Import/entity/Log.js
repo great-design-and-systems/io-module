@@ -1,6 +1,12 @@
-import mongoose from 'mongoose';
+'use strict';
 
-const ImportLogSchema = new mongoose.Schema({
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImportLogSchema = new _mongoose2.default.Schema({
     importId: {
         type: String,
         required: [true, 'Import Id is required']
@@ -33,4 +39,4 @@ const ImportLogSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('ImportLog', ImportLogSchema);
+module.exports = _mongoose2.default.model('ImportLog', ImportLogSchema);

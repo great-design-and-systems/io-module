@@ -1,6 +1,12 @@
-import mongoose from 'mongoose';
+'use strict';
 
-const ImportTrackerSchema = new mongoose.Schema({
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImportTrackerSchema = new _mongoose2.default.Schema({
     description: {
         type: String,
         required: [true, 'Description is required']
@@ -41,4 +47,4 @@ const ImportTrackerSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('ImportTracker', ImportTrackerSchema);
+module.exports = _mongoose2.default.model('ImportTracker', ImportTrackerSchema);

@@ -2,7 +2,7 @@
   "name": "io-module",
   "version": "1.0.0",
   "description": "IO related services (File, import and export services)",
-  "main": "src/boundary/index.js",
+  "main": "dist/app/index.js",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.16.0",
@@ -10,6 +10,7 @@
     "babel-register": "^6.23.0",
     "batchflow": "^0.4.0",
     "chai": "^3.5.0",
+    "csv-parse": "^1.2.0",
     "express": "^4.14.0",
     "fluid-chains": "^0.3.4",
     "fs-extra": "^3.0.1",
@@ -35,7 +36,8 @@
     "start": "node dist/index.js",
     "container-start": "/bin/bash /app/scripts/start.sh",
     "test": "mocha --compilers js:babel-core/register --recursive",
-    "dev-test": "mocha --compilers js:babel-core/register --recursive --watch"
+    "dev-test": "mocha --compilers js:babel-core/register --recursive --watch",
+    "compile": "babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
