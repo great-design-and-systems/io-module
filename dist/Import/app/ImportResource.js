@@ -5,11 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.API = undefined;
 
-var _Import = require('./Import');
+var _Chain = require('./Chain.info');
 
-var _Import2 = _interopRequireDefault(_Import);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _fluidChains = require('fluid-chains');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -19,23 +17,7 @@ var ImportResource = function ImportResource(app) {
     _classCallCheck(this, ImportResource);
 
     app.post(API + 'create-import-csv', function (req, res) {
-        /* services.fileServicePort.links.downloadFile.execute({
-             params: {
-                 fileId: req.body.fileId
-             }
-         }, function (err, result) {
-             if (!err) {*/
-        _Import2.default.createImportCSV(req.body.description, req.body.fileId, req.body.dataFor, result.response.rawEncoded, function (err, result) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.status(200).send({
-                    message: 'Import tracker is created with id: ' + result.importId,
-                    importId: result.importId
-                });
-            }
-        });
-        // }
+        (0, _fluidChains.ExecuteChain)(_Chain.CREATE_IMPORT_CSV, {}, function (result) {});
     });
 };
 
