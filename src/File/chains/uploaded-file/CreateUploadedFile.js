@@ -1,7 +1,7 @@
 import { CREATE_UPLOADED_FILE } from './Chain.info';
 import { Chain } from 'fluid-chains';
-import { UploadedFile } from '../../entity/';
 import { FILE_ERROR_HANDLER } from '../util/Chain.info';
+import { UploadedFile } from '../../entity/';
 
 const Action = (context, param, next) => {
     UploadedFile.create({
@@ -10,7 +10,7 @@ const Action = (context, param, next) => {
         fileSize: param.fileSize(),
         createdBy: param.createdBy()
     }, (err, result) => {
-        context.set('uploaded-file', result);
+        context.set('uploadedFile', result);
         next(err);
     });
 }
