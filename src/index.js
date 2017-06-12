@@ -1,6 +1,6 @@
 import { GDSDatabase, GDSServer, GDSServices, GDSUtil } from 'gds-config';
 
-import IOResource from './boundary/';
+import { IOResource } from './app/';
 import bodyParser from 'body-parser';
 import express from 'express';
 
@@ -15,12 +15,10 @@ new GDSDatabase().connect((errDB) => {
         app.use(bodyParser.raw({
             limit: UPLOAD_LIMIT
         }));
-        //new GDSUtil().getLogger(() => {
         app.listen(PORT, () => {
-            //      global.gdsLogger.logInfo('Express is listening to port ' + PORT);
+            console.log('Express is listening to port ' + PORT);
             new IOResource(app);
         });
-        //})
     }
 });
 
