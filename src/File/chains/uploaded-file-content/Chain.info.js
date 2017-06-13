@@ -1,4 +1,11 @@
-export const CREATE_UPLOADED_FILE_CONTENT = 'CreateUploadedFileContent';
-export const GET_UPLOADED_FILE_CONTENT_BY_ID = 'GetUploadedFileContentById';
-export const REMOVE_UPLOADED_FILE_CONTENT = 'RemoveUploadedFileContent';
-export const UPDATE_UPLOADED_FILE_CONTENT_BY_ID = 'UpdateUploadedFileContentById';
+const CREATE_UPLOADED_FILE_CONTENT = 'CreateUploadedFileContent';
+const GET_UPLOADED_FILE_CONTENT_BY_ID = 'GetUploadedFileContentById';
+const REMOVE_UPLOADED_FILE_CONTENT = 'RemoveUploadedFileContent';
+const UPDATE_UPLOADED_FILE_CONTENT_BY_ID = 'UpdateUploadedFileContentById';
+
+module.exports = {
+    CREATE_UPLOADED_FILE_CONTENT,
+    GET_UPLOADED_FILE_CONTENT_BY_ID,
+    REMOVE_UPLOADED_FILE_CONTENT,
+    UPDATE_UPLOADED_FILE_CONTENT_BY_ID
+}

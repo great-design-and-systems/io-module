@@ -1,4 +1,6 @@
-export const CREATE_UPLOADED_FILE = 'CreateUploadedFile';
-export const GET_UPLOADED_FILE_BY_ID = 'GetUploadedFileById';
-export const REMOVE_UPLOADED_FILE = 'RemoveUploadedFile';
-export const UPDATE_UPLOADED_FILE_BY_ID = 'UpdateUploadedFileById';
+const CREATE_UPLOADED_FILE = 'CreateUploadedFile';
+const GET_UPLOADED_FILE_BY_ID = 'GetUploadedFileById';
+const REMOVE_UPLOADED_FILE = 'RemoveUploadedFile';
+const UPDATE_UPLOADED_FILE_BY_ID = 'UpdateUploadedFileById';
+
+module.exports = { CREATE_UPLOADED_FILE, GET_UPLOADED_FILE_BY_ID, REMOVE_UPLOADED_FILE, UPDATE_UPLOADED_FILE_BY_ID };

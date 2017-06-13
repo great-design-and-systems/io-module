@@ -1,3 +1,8 @@
-export const FILE_ERROR_HANDLER = 'FileErrorHandler';
-export const READ_FILE = 'ReadFile';
-export const REMOVE_FILE = 'RemoveFile';
+const FILE_ERROR_HANDLER = 'FileErrorHandler';
+const READ_FILE = 'ReadFile';
+const REMOVE_FILE = 'RemoveFile';
+module.exports = {
+    FILE_ERROR_HANDLER,
+    READ_FILE,
+    REMOVE_FILE
+}

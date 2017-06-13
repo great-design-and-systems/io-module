@@ -1,7 +1,7 @@
 import { ExecuteChain } from 'fluid-chains';
 import { UPLOAD_SINGLE_FILE } from './Chain.info';
 
-export const API = '/api/file/';
+export const API = '/api/files/';
 
 export default class FileResource {
     constructor(app) {

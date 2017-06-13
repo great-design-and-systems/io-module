@@ -1,7 +1,7 @@
 import { CREATE_IMPORT_TRACKER } from './Chain.info';
 import { Chain } from 'fluid-chains';
 import { IMPORT_ERROR_HANDLER } from '../util/Chain.info';
-import { Tracker } from '../entity/';
+import { Tracker } from '../../entity/';
 
 const Action = (context, param, next) => {
     const parsedData = param.parsedData();
