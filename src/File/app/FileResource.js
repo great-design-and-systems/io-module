@@ -1,4 +1,5 @@
-import File from './File';
+import { ExecuteChain } from 'fluid-chains';
+import { UPLOAD_SINGLE_FILE } from './Chain.info';
 
 export const API = '/api/file/';
 
@@ -14,25 +15,14 @@ export default class FileResource {
         });
 
         app.post(API + 'upload-single-file/:userId', (req, res) => {
-            File.uploadSingleFile(req.files.uploadFile, req.params.userId, (err, fileId) => {
-                if (err) {
-                    res.status(500).send({
-                        message: 'Error uploading file ' + req.files.uploadFile.originalFilename
-                    });
-                } else {
-                    res.send({
-                        message: 'File has been uploaded',
-                        fileId: fileId,
-                        links: {
-                            downloadFile: 'http://' + req.headers.host + API + 'download-file/' + fileId,
-                            post: { updateSingleFileContent: 'http://' + req.headers.host + API + 'update-single-file-content/' + fileId },
-                            delete: {
-                                deleteFile: 'http://' + req.headers.host + API + fileId
-                            }
-                        }
-                    });
-                }
-            });
+            const file = req.files.uploadFile;
+            ExecuteChain(UPLOAD_SINGLE_FILE, {
+                fileType: file.mimeType,
+                filePath: file.path,
+                fileName: file.originalname,
+                fileSize: file.size,
+                createdBy: req.params.userId
+            }, result => res.status(result.status()).send(result.dto()));
         });
 
     }

@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _FileResource = require('./FileResource');
+
 var _fluidChains = require('fluid-chains');
 
 var _gdsConfig = require('gds-config');
@@ -22,6 +24,7 @@ var DomainApi = function (_Chain) {
 
         var _this = _possibleConstructorReturn(this, (DomainApi.__proto__ || Object.getPrototypeOf(DomainApi)).call(this, 'FileDomainApi', function (context, param, next) {
             var dto = param.dto ? param.dto() : new _gdsConfig.GDSDomainDTO();
+            dto.addPost('uploadSingleFile', param.protocol() + param.host() + _FileResource.API + 'upload-single-file/:userId');
             context.set('dto', dto);
             next();
         }));

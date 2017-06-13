@@ -44,6 +44,10 @@ var _Chain3 = require('./tracker/Chain.info');
 
 var _Chain4 = _interopRequireDefault(_Chain3);
 
+var _Chain5 = require('./util/Chain.info');
+
+var _Chain6 = _interopRequireDefault(_Chain5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = { Tracker: _Chain4.default, Columns: _Chain2.default };
+module.exports = { Tracker: _Chain4.default, Columns: _Chain2.default, Util: _Chain6.default };

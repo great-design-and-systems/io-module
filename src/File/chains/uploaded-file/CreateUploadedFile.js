@@ -10,7 +10,7 @@ const Action = (context, param, next) => {
         fileSize: param.fileSize(),
         createdBy: param.createdBy()
     }, (err, result) => {
-        context.set('uploadedFile', result);
+        context.set('fileId', result._id);
         next(err);
     });
 }

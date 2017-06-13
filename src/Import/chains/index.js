@@ -9,5 +9,6 @@ import ImportErrorHandler from './util/ImportErrorHandler';
 import ParseRawCSV from './util/ParseRawCSV';
 import RemoveImportTracker from './tracker/RemoveImportTracker';
 import Tracker from './tracker/Chain.info';
+import Util from './util/Chain.info';
 
-module.exports = { Tracker, Columns };
+module.exports = { Tracker, Columns, Util };

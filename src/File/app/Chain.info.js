@@ -1,0 +1,1 @@
+export const UPLOAD_SINGLE_FILE = 'UploadSingleFile';
