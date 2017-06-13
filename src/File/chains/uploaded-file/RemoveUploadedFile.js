@@ -9,5 +9,5 @@ const Action = (context, param, next) => {
     });
 }
 const RemoveUploadedFile = new Chain(REMOVE_UPLOADED_FILE, Action,
-    undefined, REMOVE_UPLOADED_FILE);
+    undefined, FILE_ERROR_HANDLER);
 RemoveUploadedFile.addSpec('fileId', true);
