@@ -12,4 +12,4 @@ const Action = (context, param, next) => {
 };
 const RemoveFile = new Chain(REMOVE_FILE, Action);
 RemoveFile.addSpec('filePath', true);
-RemoveFile.addSpec('fileId', false, undefined, true);
+RemoveFile.addSpec('fileId', false);

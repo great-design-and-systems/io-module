@@ -1,4 +1,4 @@
-import { DomainApi, FileResource } from './app/';
+import { Chains, FileResource, initChains } from './app/';
 
-new DomainApi();
-module.exports = { FileResource };
+initChains();
+module.exports = { FileResource, Chains };

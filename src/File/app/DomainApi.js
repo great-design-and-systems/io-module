@@ -7,6 +7,7 @@ export default class DomainApi extends Chain {
         super('FileDomainApi', (context, param, next) => {
             const dto = param.dto ? param.dto() : new GDSDomainDTO();
             dto.addPost('uploadSingleFile', param.protocol() + param.host() + API + 'upload-single-file/:userId');
+            dto.addGet('downloadFile', param.protocol() + param.host() + API + 'download-file/:fileId');
             context.set('dto', dto);
             next();
         });

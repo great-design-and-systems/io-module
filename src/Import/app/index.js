@@ -3,7 +3,10 @@ import { CreateImportCSV } from './Import';
 import DomainApi from './DomainApi';
 import ImportResource from './ImportResource';
 
-new CreateImportCSV();
+const initChains = () => {
+    new CreateImportCSV();
+    new DomainApi();
+}
 
-module.exports = { DomainApi, ImportResource, Chains };
+module.exports = { initChains, ImportResource, Chains };
 

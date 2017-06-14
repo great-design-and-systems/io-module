@@ -6,7 +6,7 @@ import { UploadedFileContent } from '../../entity/';
 const Action = (context, param, next) => {
     UploadedFileContent.create({
         fileId: param.fileId(),
-        fileData: param.content(),
+        content: param.fileData(),
         contentSequence: 0
     }, (err, result) => {
         context.set('fileId', param.fileId());

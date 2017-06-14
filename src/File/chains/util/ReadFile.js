@@ -13,4 +13,4 @@ const Action = (context, param, next) => {
 };
 const ReadFile = new Chain(READ_FILE, Action);
 ReadFile.addSpec('filePath', true);
-ReadFile.addSpec('fileId', false, undefined, true);
+ReadFile.addSpec('fileId', false);

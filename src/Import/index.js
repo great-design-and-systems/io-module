@@ -1,6 +1,4 @@
-import { DomainApi, ImportResource } from './app/';
+import { Chains, ImportResource, initChains } from './app/';
 
-import Chains from './chains/';
-
-new DomainApi();
+initChains();
 module.exports = { ImportResource, Chains };

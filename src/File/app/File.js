@@ -1,8 +1,8 @@
-import { Chain, ExecuteChain } from 'fluid-chains';
+import { Chain, ChainMiddleware, ExecuteChain } from 'fluid-chains';
+import { DOWNLOAD_FILE, UPLOAD_SINGLE_FILE } from './Chain.info';
 import { UploadedFile, UploadedFileContent, Util } from '../chains/';
 
 import { GDSDomainDTO } from 'gds-config';
-import { UPLOAD_SINGLE_FILE } from './Chain.info';
 
 export class UploadSingleFile extends Chain {
     constructor() {
@@ -34,5 +34,28 @@ export class UploadSingleFile extends Chain {
         this.addSpec('fileSize', true);
         this.addSpec('createdBy', true);
         this.addSpec('filePath', true);
+    }
+}
+
+export class DownloadFile extends Chain {
+    constructor() {
+        super(DOWNLOAD_FILE, (context, param, next) => {
+            ExecuteChain([
+                UploadedFile.GET_UPLOADED_FILE_BY_ID,
+                UploadedFileContent.GET_UPLOADED_FILE_CONTENT_BY_ID
+            ], { fileId: param.fileId() }, result => {
+                if (result.$err) {
+                    context.set('status', 500);
+                    context.set('dto', new GDSDomainDTO('ERROR_' + DOWNLOAD_FILE, result.$errorMessage()));
+                    next();
+                } else {
+                    //TODO: get the uploaded file detail
+                    context.set('status', 200);
+                    context.set('content', result.uploadedFileContent());
+                    next();
+                }
+            });
+        });
+        this.addSpec('fileId', true);
     }
 }
