@@ -6,3 +6,4 @@ export const REMOVE_COMPLETED_TRACKER = 'RemoveCompletedTracker';
 export const REMOVE_EXPORT_TRACKER = 'RemoveExportTracker';
 export const ADD_EXPORT_PROGRESS = 'AddExportProgress';
 export const FAIL_EXPORT_TRACKER = 'FailExportTracker';
+export const UPDATE_EXPORT_FILE_INFO = 'UpdateExportFileInfo';
