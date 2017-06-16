@@ -1,11 +1,15 @@
 import { DELETE_FILE, DOWNLOAD_FILE, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 
+import DomainApi from './DomainApi';
 import { ExecuteChain } from 'fluid-chains';
+import { init } from './File';
 
 export const API = '/api/files/';
 
 export default class FileResource {
     constructor(app) {
+        new DomainApi();
+        init();
         app.get('/upload-form', (req, res) => {
             res.status(200)
                 .send('<html><body>' +

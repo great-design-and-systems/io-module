@@ -144,3 +144,11 @@ export class GetFileDetailById extends Chain {
         this.addSpec('fileId', true);
     }
 }
+
+export const init = () => {
+    new UploadSingleFile();
+    new DownloadFile();
+    new UpdateSingleFileContent();
+    new DeleteFile();
+    new GetFileDetailById();
+}

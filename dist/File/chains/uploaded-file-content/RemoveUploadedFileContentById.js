@@ -13,5 +13,5 @@ var Action = function Action(context, param, next) {
         next(err);
     });
 };
-var RemoveUploadedFileContent = new _fluidChains.Chain(_Chain2.REMOVE_UPLOADED_FILE_CONTENT, Action, undefined, _Chain.FILE_ERROR_HANDLER);
+var RemoveUploadedFileContent = new _fluidChains.Chain(_Chain2.REMOVE_UPLOADED_FILE_CONTENT_BY_ID, Action, undefined, _Chain.FILE_ERROR_HANDLER);
 RemoveUploadedFileContent.addSpec('fileId', true);

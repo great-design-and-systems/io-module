@@ -7,7 +7,15 @@ exports.API = undefined;
 
 var _Chain = require('./Chain.info');
 
+var _DomainApi = require('./DomainApi');
+
+var _DomainApi2 = _interopRequireDefault(_DomainApi);
+
 var _fluidChains = require('fluid-chains');
+
+var _File = require('./File');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -16,6 +24,8 @@ var API = exports.API = '/api/files/';
 var FileResource = function FileResource(app) {
     _classCallCheck(this, FileResource);
 
+    new _DomainApi2.default();
+    (0, _File.init)();
     app.get('/upload-form', function (req, res) {
         res.status(200).send('<html><body>' + '<form name="upload" method="post" action="api/files/upload-single-file/0001" enctype="multipart/form-data">' + '<input type="file" name="uploadFile">' + '<input type="submit" value="Submit">' + '</form></body></html>');
     });
@@ -69,6 +79,14 @@ var FileResource = function FileResource(app) {
     app.delete(API + ':fileId', function (req, res) {
         (0, _fluidChains.ExecuteChain)(_Chain.DELETE_FILE, {
             fileId: req.prams.fileId
+        }, function (result) {
+            return res.status(result.status()).send(result.dto());
+        });
+    });
+
+    app.get(API + 'get-file-detail-by-id/:fileId', function (req, res) {
+        (0, _fluidChains.ExecuteChain)(_Chain.GET_FILE_DETAIL_BY_ID, {
+            fileId: req.params.fileId
         }, function (result) {
             return res.status(result.status()).send(result.dto());
         });

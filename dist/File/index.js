@@ -2,5 +2,4 @@
 
 var _app = require('./app/');
 
-(0, _app.initChains)();
-module.exports = { FileResource: _app.FileResource, Chains: _app.Chains };
+module.exports = { FileResource: _app.FileResource, Chains: _app.Chains, initChains: _app.initChains };

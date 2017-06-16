@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _Chain2 = require('./Chain.info');
+
 var _FileResource = require('./FileResource');
 
 var _fluidChains = require('fluid-chains');
@@ -24,10 +26,11 @@ var DomainApi = function (_Chain) {
 
         var _this = _possibleConstructorReturn(this, (DomainApi.__proto__ || Object.getPrototypeOf(DomainApi)).call(this, 'FileDomainApi', function (context, param, next) {
             var dto = param.dto ? param.dto() : new _gdsConfig.GDSDomainDTO();
-            dto.addPost('uploadSingleFile', '' + param.protocol() + param.host() + _FileResource.API + 'upload-single-file/:userId');
-            dto.addGet('downloadFile', '' + param.protocol() + param.host() + _FileResource.API + 'download-file/:fileId');
-            dto.addPost('updateSingleFileContent', '' + param.protocol() + param.host() + _FileResource.API + 'update-single-file-content/:fileId');
-            dto.addDelete('deleteFile', '' + param.protocol() + param.host() + _FileResource.API + ':fileId');
+            dto.addPost(_Chain2.UPLOAD_SINGLE_FILE, '' + param.protocol() + param.host() + _FileResource.API + 'upload-single-file/:userId');
+            dto.addGet(_Chain2.DOWNLOAD_FILE, '' + param.protocol() + param.host() + _FileResource.API + 'download-file/:fileId');
+            dto.addPost(_Chain2.UPDATE_SINGLE_FILE_CONTENT, '' + param.protocol() + param.host() + _FileResource.API + 'update-single-file-content/:fileId');
+            dto.addDelete(_Chain2.DELETE_FILE, '' + param.protocol() + param.host() + _FileResource.API + ':fileId');
+            dto.addGet(_Chain2.GET_FILE_DETAIL_BY_ID, '' + param.protocol() + param.host() + _FileResource.API + 'get-file-detail-by-id/:fileId');
             context.set('dto', dto);
             next();
         }));

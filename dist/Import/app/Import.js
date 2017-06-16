@@ -3,13 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.CreateImportCSV = undefined;
+exports.init = exports.CreateImportCSV = undefined;
 
 var _fluidChains = require('fluid-chains');
 
 var _chains = require('../chains/');
 
 var _Chain2 = require('./Chain.info');
+
+var _File = require('../../File/');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -24,7 +26,7 @@ var CreateImportCSV = exports.CreateImportCSV = function (_Chain) {
         _classCallCheck(this, CreateImportCSV);
 
         var _this = _possibleConstructorReturn(this, (CreateImportCSV.__proto__ || Object.getPrototypeOf(CreateImportCSV)).call(this, _Chain2.CREATE_IMPORT_CSV, function (context, param, next) {
-            (0, _fluidChains.ExecuteChain)([_chains.Util.PARSE_RAW_CSV, _chains.Tracker.CREATE_IMPORT_TRACKER, _chains.Columns.CREATE_IMPORT_COLUMNS], {
+            (0, _fluidChains.ExecuteChain)([_File.Chains.DOWNLOAD_FILE, _chains.Util.PARSE_RAW_CSV, _chains.Tracker.CREATE_IMPORT_TRACKER, _chains.Columns.CREATE_IMPORT_COLUMNS], {
                 description: param.description(),
                 type: 'csv_importer',
                 dateFor: param.dataFor(),
@@ -43,3 +45,7 @@ var CreateImportCSV = exports.CreateImportCSV = function (_Chain) {
 
     return CreateImportCSV;
 }(_fluidChains.Chain);
+
+var init = exports.init = function init() {
+    new CreateImportCSV();
+};

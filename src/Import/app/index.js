@@ -1,12 +1,6 @@
 import Chains from './Chain.info';
-import { CreateImportCSV } from './Import';
-import DomainApi from './DomainApi';
 import ImportResource from './ImportResource';
+import { init } from './Import';
 
-const initChains = () => {
-    new CreateImportCSV();
-    new DomainApi();
-}
-
-module.exports = { initChains, ImportResource, Chains };
+module.exports = { initChains: init, ImportResource, Chains };
 
