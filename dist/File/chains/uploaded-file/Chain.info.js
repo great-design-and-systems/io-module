@@ -1,9 +1,8 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var CREATE_UPLOADED_FILE = exports.CREATE_UPLOADED_FILE = 'CreateUploadedFile';
-var GET_UPLOADED_FILE_BY_ID = exports.GET_UPLOADED_FILE_BY_ID = 'GetUploadedFileById';
-var REMOVE_UPLOADED_FILE = exports.REMOVE_UPLOADED_FILE = 'RemoveUploadedFile';
-var UPDATE_UPLOADED_FILE_BY_ID = exports.UPDATE_UPLOADED_FILE_BY_ID = 'UpdateUploadedFileById';
+var CREATE_UPLOADED_FILE = 'CreateUploadedFile';
+var GET_UPLOADED_FILE_BY_ID = 'GetUploadedFileById';
+var REMOVE_UPLOADED_FILE_BY_ID = 'RemoveUploadedFileById';
+var UPDATE_UPLOADED_FILE_BY_ID = 'UpdateUploadedFileById';
+
+module.exports = { CREATE_UPLOADED_FILE: CREATE_UPLOADED_FILE, GET_UPLOADED_FILE_BY_ID: GET_UPLOADED_FILE_BY_ID, REMOVE_UPLOADED_FILE_BY_ID: REMOVE_UPLOADED_FILE_BY_ID, UPDATE_UPLOADED_FILE_BY_ID: UPDATE_UPLOADED_FILE_BY_ID };

@@ -21,4 +21,4 @@ var Action = function Action(context, param, next) {
 };
 var ReadFile = new _fluidChains.Chain(_Chain.READ_FILE, Action);
 ReadFile.addSpec('filePath', true);
-ReadFile.addSpec('fileId', false, undefined, true);
+ReadFile.addSpec('fileId', false);

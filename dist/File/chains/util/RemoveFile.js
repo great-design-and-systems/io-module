@@ -20,4 +20,4 @@ var Action = function Action(context, param, next) {
 };
 var RemoveFile = new _fluidChains.Chain(_Chain.REMOVE_FILE, Action);
 RemoveFile.addSpec('filePath', true);
-RemoveFile.addSpec('fileId', false, undefined, true);
+RemoveFile.addSpec('fileId', false);

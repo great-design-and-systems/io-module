@@ -28,13 +28,13 @@ var _RemoveFile = require('./util/RemoveFile');
 
 var _RemoveFile2 = _interopRequireDefault(_RemoveFile);
 
-var _RemoveUploadedFile = require('./uploaded-file/RemoveUploadedFile');
+var _RemoveUploadedFileById = require('./uploaded-file/RemoveUploadedFileById');
 
-var _RemoveUploadedFile2 = _interopRequireDefault(_RemoveUploadedFile);
+var _RemoveUploadedFileById2 = _interopRequireDefault(_RemoveUploadedFileById);
 
-var _RemoveUploadedFileContent = require('./uploaded-file-content/RemoveUploadedFileContent');
+var _RemoveUploadedFileContentById = require('./uploaded-file-content/RemoveUploadedFileContentById');
 
-var _RemoveUploadedFileContent2 = _interopRequireDefault(_RemoveUploadedFileContent);
+var _RemoveUploadedFileContentById2 = _interopRequireDefault(_RemoveUploadedFileContentById);
 
 var _UpdateUploadedFileById = require('./uploaded-file/UpdateUploadedFileById');
 

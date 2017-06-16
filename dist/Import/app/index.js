@@ -16,6 +16,9 @@ var _ImportResource2 = _interopRequireDefault(_ImportResource);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-new _Import.CreateImportCSV();
+var initChains = function initChains() {
+    new _Import.CreateImportCSV();
+    new _DomainApi2.default();
+};
 
-module.exports = { DomainApi: _DomainApi2.default, ImportResource: _ImportResource2.default, Chains: _Chain2.default };
+module.exports = { initChains: initChains, ImportResource: _ImportResource2.default, Chains: _Chain2.default };

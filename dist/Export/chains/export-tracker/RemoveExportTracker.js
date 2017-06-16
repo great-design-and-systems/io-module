@@ -9,9 +9,9 @@ var _Chain2 = require('./Chain.info');
 var _entity = require('../../entity/');
 
 var Action = function Action(context, param, next) {
-    _entity.Tracker.findByIdAndRemove(param.importId(), function (err) {
+    _entity.ExportTracker.findByIdAndRemove(param.exportId(), function (err) {
         next(err);
     });
 };
-var RemoveImportTracker = new _fluidChains.Chain(_Chain2.REMOVE_IMPORT_TRACKER, Action, undefined, _Chain2.REMOVE_IMPORT_TRACKER);
-RemoveImportTracker.addSpec('importId', true);
+var RemoveExportTracker = new _fluidChains.Chain(_Chain2.REMOVE_EXPORT_TRACKER, Action, undefined, _Chain.EXPORT_ERROR_HANDLER);
+RemoveExportTracker.addSpec('exportId', true);

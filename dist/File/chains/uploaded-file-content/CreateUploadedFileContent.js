@@ -11,7 +11,7 @@ var _entity = require('../../entity/');
 var Action = function Action(context, param, next) {
     _entity.UploadedFileContent.create({
         fileId: param.fileId(),
-        fileData: param.content(),
+        content: param.fileData(),
         contentSequence: 0
     }, function (err, result) {
         context.set('fileId', param.fileId());

@@ -24,7 +24,10 @@ var DomainApi = function (_Chain) {
 
         var _this = _possibleConstructorReturn(this, (DomainApi.__proto__ || Object.getPrototypeOf(DomainApi)).call(this, 'FileDomainApi', function (context, param, next) {
             var dto = param.dto ? param.dto() : new _gdsConfig.GDSDomainDTO();
-            dto.addPost('uploadSingleFile', param.protocol() + param.host() + _FileResource.API + 'upload-single-file/:userId');
+            dto.addPost('uploadSingleFile', '' + param.protocol() + param.host() + _FileResource.API + 'upload-single-file/:userId');
+            dto.addGet('downloadFile', '' + param.protocol() + param.host() + _FileResource.API + 'download-file/:fileId');
+            dto.addPost('updateSingleFileContent', '' + param.protocol() + param.host() + _FileResource.API + 'update-single-file-content/:fileId');
+            dto.addDelete('deleteFile', '' + param.protocol() + param.host() + _FileResource.API + ':fileId');
             context.set('dto', dto);
             next();
         }));

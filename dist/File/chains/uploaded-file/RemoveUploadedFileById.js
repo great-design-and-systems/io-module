@@ -9,9 +9,9 @@ var _Chain2 = require('./Chain.info');
 var _entity = require('../../entity/');
 
 var Action = function Action(context, param, next) {
-    _entity.Tracker.findByIdAndRemove(param.importId(), function (err) {
+    _entity.UploadedFile.findByIdAndRemove(param.fileId(), function (err) {
         next(err);
     });
 };
-var RemoveImportTracker = new _fluidChains.Chain(_Chain2.REMOVE_IMPORT_TRACKER, Action, undefined, _Chain2.REMOVE_IMPORT_TRACKER);
-RemoveImportTracker.addSpec('importId', true);
+var RemoveUploadedFile = new _fluidChains.Chain(_Chain2.REMOVE_UPLOADED_FILE_BY_ID, Action, undefined, _Chain.FILE_ERROR_HANDLER);
+RemoveUploadedFile.addSpec('fileId', true);

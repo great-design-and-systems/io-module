@@ -1,4 +1,4 @@
-import { DOWNLOAD_FILE, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
+import { DELETE_FILE, DOWNLOAD_FILE, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 
 import { ExecuteChain } from 'fluid-chains';
 
@@ -50,7 +50,7 @@ export default class FileResource {
             });
         });
 
-        app.post(`${API}update-single-file-content/:fileId`, function (req, res) {
+        app.post(`${API}update-single-file-content/:fileId`, (req, res) => {
             const file = req.files.uploadFile;
             ExecuteChain(UPDATE_SINGLE_FILE_CONTENT, {
                 fileId: req.params.fileId,
@@ -59,6 +59,18 @@ export default class FileResource {
                     updatedOn: new Date(),
                     fileSize: file.size
                 }
+            }, (result) => res.status(result.status()).send(result.dto()));
+        });
+
+        app.delete(`${API}:fileId`, (req, res) => {
+            ExecuteChain(DELETE_FILE, {
+                fileId: req.prams.fileId
+            }, (result) => res.status(result.status()).send(result.dto()));
+        });
+
+        app.get(`${API}get-file-detail-by-id/:fileId`, (req, res) => {
+            ExecuteChain(GET_FILE_DETAIL_BY_ID, {
+                fileId: req.params.fileId
             }, (result) => res.status(result.status()).send(result.dto()));
         });
     }

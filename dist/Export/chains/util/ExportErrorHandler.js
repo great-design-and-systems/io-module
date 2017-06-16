@@ -7,7 +7,7 @@ var _gdsConfig = require('gds-config');
 var _Chain = require('./Chain.info');
 
 var Action = function Action(context, param, next) {
-    new _gdsConfig.GDSAppLogger('ERROR: ' + param.$errorFrom() + ': ' + param.$errorMessage()).error();
+    new _gdsConfig.GDSAppLogger('ERROR: ' + param.$owner() + ': ' + param.$errorMessage()).error();
     next();
 };
-new _fluidChains.Chain(_Chain.IMPORT_ERROR_HANDLER, Action);
+new _fluidChains.Chain(_Chain.EXPORT_ERROR_HANDLER, Action);

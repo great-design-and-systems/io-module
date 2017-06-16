@@ -6,7 +6,7 @@ var _fluidChains = require('fluid-chains');
 
 var _Chain2 = require('../util/Chain.info');
 
-var _entity = require('../entity/');
+var _entity = require('../../entity/');
 
 var Action = function Action(context, param, next) {
     var parsedData = param.parsedData();

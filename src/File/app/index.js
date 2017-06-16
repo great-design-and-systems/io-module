@@ -1,4 +1,4 @@
-import { DownloadFile, UpdateSingleFileContent, UploadSingleFile } from './File';
+import { DeleteFile, DownloadFile, GetFileDetailById, UpdateSingleFileContent, UploadSingleFile } from './File';
 
 import Chains from './Chain.info';
 import DomainApi from './DomainApi';
@@ -9,6 +9,8 @@ const initChains = () => {
     new UploadSingleFile();
     new DownloadFile();
     new UpdateSingleFileContent();
+    new DeleteFile();
+    new GetFileDetailById();
 }
 module.exports = { FileResource, Chains, initChains };
 

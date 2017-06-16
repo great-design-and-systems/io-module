@@ -6,7 +6,7 @@ var _Chain = require('./Chain.info');
 
 var _Chain2 = require('../util/Chain.info');
 
-var _entity = require('../entity/');
+var _entity = require('../../entity/');
 
 var Action = function Action(context, param, next) {
     _entity.Tracker.findById(param.importId(), function (err, tracker) {

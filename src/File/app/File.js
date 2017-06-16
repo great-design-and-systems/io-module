@@ -1,5 +1,5 @@
 import { Chain, ChainMiddleware, ExecuteChain } from 'fluid-chains';
-import { DOWNLOAD_FILE, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
+import { DELETE_FILE, DOWNLOAD_FILE, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 import { UploadedFile, UploadedFileContent, Util } from '../chains/';
 
 import { GDSDomainDTO } from 'gds-config';
@@ -98,5 +98,49 @@ export class UpdateSingleFileContent extends Chain {
         this.addSpec('uploadedFileInputUpdate', true);
         this.addSpec('fileId', true);
         this.addSpec('filePath', true);
+    }
+}
+
+export class DeleteFile extends Chain {
+    constructor() {
+        super(DELETE_FILE, (context, param, next) => {
+            ExecuteChain([
+                UploadedFileContent.REMOVE_UPLOADED_FILE_CONTENT_BY_ID,
+                UploadedFile.REMOVE_UPLOADED_FILE], {
+                    fileId: param.fileId()
+                }, result => {
+                    if (result.$err) {
+                        context.set('status', 500);
+                        context.set('dto', new GDSDomainDTO('ERROR_' + DELETE_FILE, result.$errorMessage()));
+                        next();
+                    } else {
+                        context.set('status', 200);
+                        context.set('dto', new GDSDomainDTO(DELETE_FILE, `File with id: ${param.fileId()} have been removed.`));
+                        next();
+                    }
+                });
+        });
+        this.addSpec('fileId', true);
+    }
+}
+
+export class GetFileDetailById extends Chain {
+    constructor() {
+        super(GET_FILE_DETAIL_BY_ID, (context, param, next) => {
+            ExecuteChain(UploadedFile.GET_UPLOADED_FILE_BY_ID, {
+                fileId: param.fileId()
+            }, result => {
+                if (result.$err) {
+                    context.set('status', 500);
+                    context.set('dto', new GDSDomainDTO('ERROR_' + GET_FILE_DETAIL_BY_ID, result.$errorMessage()));
+                    next();
+                } else {
+                    context.set('status', 200);
+                    context.set('dto', new GDSDomainDTO(GET_FILE_DETAIL_BY_ID, result.uploadedFile()));
+                    next();
+                }
+            });
+        });
+        this.addSpec('fileId', true);
     }
 }
