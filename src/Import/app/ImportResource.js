@@ -1,18 +1,18 @@
+import { GDSResource, Post } from 'gds-config';
+
 import { CREATE_IMPORT_CSV } from './Chain.info';
-import DomainApi from './DomainApi';
 import { ExecuteChain } from 'fluid-chains';
 import { init } from './Import';
 
-export const API = '/api/import/';
-export default class ImportResource {
+export const API = 'api/import';
+export default class ImportResource extends GDSResource {
     constructor(app) {
-        new DomainApi();
+        super(app, API);
         init();
-        app.post(API + 'create-import-csv', function (req, res) {
+        this.post('createImportCsv', 'create-import-csv', function (req, res) {
             ExecuteChain(CREATE_IMPORT_CSV, {}, result => {
 
             });
         });
-
     }
 }
