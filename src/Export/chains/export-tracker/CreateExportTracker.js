@@ -4,7 +4,11 @@ import { EXPORT_ERROR_HANDLER } from '../util/Chain.info';
 import { ExportTracker } from '../../entity/';
 
 const Action = (context, param, next) => {
-    ExportTracker.create(param.trackerData(), (err, result) => {
+    ExportTracker.create({
+        description: param.description(),
+        type: param.type(),
+        progressLimit: param.progressLimit()
+    }, (err, result) => {
         context.set('exportTracker', result);
         next(err);
     });
@@ -12,4 +16,6 @@ const Action = (context, param, next) => {
 
 const CreateExportTracker = new Chain(CREATE_EXPORT_TRACKER,
     Action, undefined, EXPORT_ERROR_HANDLER);
-CreateExportTracker.addSpec('trackerData', true);
+CreateExportTracker.addSpec('description', true);
+CreateExportTracker.addSpec('type', true);
+CreateExportTracker.addSpec('progressLimit', true);
