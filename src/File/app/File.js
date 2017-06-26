@@ -1,8 +1,36 @@
-import { Chain, ChainMiddleware, ExecuteChain } from 'fluid-chains';
+import { Chain, ChainAction, ChainMiddleware, ExecuteChain } from 'fluid-chains';
 import { DELETE_FILE, DOWNLOAD_FILE, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 import { UploadedFile, UploadedFileContent, Util } from '../chains/';
 
 import { GDSDomainDTO } from 'gds-config';
+
+//Using Chain Actions
+export class File {
+    @ChainAction
+    UploadSingleFile(context, param, next) {
+        ExecuteChain([UploadedFile.CREATE_UPLOADED_FILE,
+        Util.READ_FILE,
+        UploadedFileContent.CREATE_UPLOADED_FILE_CONTENT,
+        Util.REMOVE_FILE,
+        UploadedFile.GET_UPLOADED_FILE_BY_ID], {
+                fileName: param.fileName(),
+                fileType: param.fileType(),
+                fileSize: param.fileSize(),
+                createdBy: param.createdBy(),
+                filePath: param.filePath()
+            }, (result) => {
+                if (result.$err) {
+                    context.set('status', 500);
+                    context.set('dto', new GDSDomainDTO('ERROR_' + UPLOAD_SINGLE_FILE, result.$errorMessage()));
+                    next();
+                } else {
+                    context.set('status', 200);
+                    context.set('dto', new GDSDomainDTO(UPLOAD_SINGLE_FILE, result.uploadedFile()));
+                    next();
+                }
+            });
+    }
+}
 
 export class UploadSingleFile extends Chain {
     constructor() {
