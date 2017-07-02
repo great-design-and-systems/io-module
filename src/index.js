@@ -30,7 +30,7 @@ ExecuteChain([
         server_tempDir: process.env.TEMP_DIR || 'uploads'
     }, (result) => {
         if (!result.$err) {
-            Logger('School').info(`Server is connected in port ${PORT}`);
+            Logger('IO').info(`Server is connected in port ${PORT}`);
             ExpressApp.get('/api', (req, res) => {
                 res.status(200).send(IOResource.getDTO(req));
             });
