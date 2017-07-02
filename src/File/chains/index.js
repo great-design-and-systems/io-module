@@ -3,6 +3,7 @@ import CreateUploadedFileContent from './uploaded-file-content/CreateUploadedFil
 import FileErrorHandler from './util/FileErrorHandler';
 import GetUploadedFileById from './uploaded-file/GetUploadedFileById';
 import GetUploadedFileContentById from './uploaded-file-content/GetUploadedFileContentById';
+import GetUploadedFiles from './uploaded-file/GetUploadedFiles';
 import ReadFile from './util/ReadFile';
 import RemoveFile from './util/RemoveFile';
 import RemoveUploadedFileById from './uploaded-file/RemoveUploadedFileById';

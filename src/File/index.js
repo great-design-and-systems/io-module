@@ -1,3 +1,3 @@
-import { Chains, FileResource, initChains } from './app/';
+import { FileChains, FileResource } from './app/';
 
-module.exports = { FileResource, Chains, initChains };
+module.exports = { FileResource, FileChains };

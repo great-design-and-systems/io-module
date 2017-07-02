@@ -20,6 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var UPLOAD_LIMIT = process.env.UPLOAD_LIMIT || '4000kb';
 var app = (0, _express2.default)();
+var router = _express2.default.Router();
 var PORT = process.env.PORT || 5000;
 new _gdsConfig.GDSDatabase().connect(function (errDB) {
     if (errDB) {

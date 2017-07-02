@@ -1,6 +1,6 @@
-import Chains from './Chain.info';
+import { CREATE_IMPORT_CSV } from './Chain.info';
+import Import from './Import';
 import ImportResource from './ImportResource';
-import { init } from './Import';
 
-module.exports = { initChains: init, ImportResource, Chains };
+module.exports = { ImportResource, ImportChains: { CREATE_IMPORT_CSV } };
 

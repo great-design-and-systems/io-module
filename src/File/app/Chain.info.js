@@ -4,3 +4,4 @@ export const UPDATE_SINGLE_FILE_CONTENT = 'UpdateSingleFileContent';
 export const DELETE_FILE = 'DeleteFile';
 export const GET_FILE_DETAIL_BY_ID = 'GetFileDetailById';
 export const COPY_FILE_FROM_URL = 'CopyFileFromUrl';
+export const GET_FILES = 'GetFiles';

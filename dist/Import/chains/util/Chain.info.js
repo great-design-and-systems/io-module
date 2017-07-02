@@ -5,3 +5,4 @@ Object.defineProperty(exports, "__esModule", {
 });
 var PARSE_RAW_CSV = exports.PARSE_RAW_CSV = 'ParseRawCSV';
 var IMPORT_ERROR_HANDLER = exports.IMPORT_ERROR_HANDLER = 'ImportErrorHandler';
+var ITERATE_CSV_DATA = exports.ITERATE_CSV_DATA = 'IterateCSVData';

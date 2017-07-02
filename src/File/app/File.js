@@ -1,38 +1,10 @@
-import { Chain, ChainAction, ChainMiddleware, ExecuteChain } from 'fluid-chains';
-import { DELETE_FILE, DOWNLOAD_FILE, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
+import { Chain, ChainMiddleware, ExecuteChain } from 'fluid-chains';
+import { DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 import { UploadedFile, UploadedFileContent, Util } from '../chains/';
 
 import { GDSDomainDTO } from 'gds-config';
 
-//Using Chain Actions
-export class File {
-    @ChainAction
-    UploadSingleFile(context, param, next) {
-        ExecuteChain([UploadedFile.CREATE_UPLOADED_FILE,
-        Util.READ_FILE,
-        UploadedFileContent.CREATE_UPLOADED_FILE_CONTENT,
-        Util.REMOVE_FILE,
-        UploadedFile.GET_UPLOADED_FILE_BY_ID], {
-                fileName: param.fileName(),
-                fileType: param.fileType(),
-                fileSize: param.fileSize(),
-                createdBy: param.createdBy(),
-                filePath: param.filePath()
-            }, (result) => {
-                if (result.$err) {
-                    context.set('status', 500);
-                    context.set('dto', new GDSDomainDTO('ERROR_' + UPLOAD_SINGLE_FILE, result.$errorMessage()));
-                    next();
-                } else {
-                    context.set('status', 200);
-                    context.set('dto', new GDSDomainDTO(UPLOAD_SINGLE_FILE, result.uploadedFile()));
-                    next();
-                }
-            });
-    }
-}
-
-export class UploadSingleFile extends Chain {
+class UploadSingleFile extends Chain {
     constructor() {
         super(UPLOAD_SINGLE_FILE, (context, param, next) => {
             ExecuteChain([UploadedFile.CREATE_UPLOADED_FILE,
@@ -65,7 +37,7 @@ export class UploadSingleFile extends Chain {
     }
 }
 
-export class DownloadFile extends Chain {
+class DownloadFile extends Chain {
     constructor() {
         super(DOWNLOAD_FILE, (context, param, next) => {
             ExecuteChain([
@@ -99,7 +71,7 @@ export class DownloadFile extends Chain {
     }
 }
 
-export class UpdateSingleFileContent extends Chain {
+class UpdateSingleFileContent extends Chain {
     constructor() {
         super(UPDATE_SINGLE_FILE_CONTENT, (context, param, next) => {
             ExecuteChain([
@@ -129,7 +101,7 @@ export class UpdateSingleFileContent extends Chain {
     }
 }
 
-export class DeleteFile extends Chain {
+class DeleteFile extends Chain {
     constructor() {
         super(DELETE_FILE, (context, param, next) => {
             ExecuteChain([
@@ -152,7 +124,7 @@ export class DeleteFile extends Chain {
     }
 }
 
-export class GetFileDetailById extends Chain {
+class GetFileDetailById extends Chain {
     constructor() {
         super(GET_FILE_DETAIL_BY_ID, (context, param, next) => {
             ExecuteChain(UploadedFile.GET_UPLOADED_FILE_BY_ID, {
@@ -173,10 +145,31 @@ export class GetFileDetailById extends Chain {
     }
 }
 
-export const init = () => {
+class GetFiles extends Chain {
+    constructor() {
+        super(GET_FILES, (context, param, next) => {
+            ExecuteChain(UploadedFile.GET_UPLOADED_FILES, {}, result => {
+                if (result.$err) {
+                    context.set('status', 500);
+                    context.set('dto', new GDSDomainDTO('ERROR_' + GET_FILES, result.$errorMessage()));
+                    next();
+                } else {
+                    context.set('status', 200);
+                    context.set('dto', new GDSDomainDTO(GET_FILES, result.files()));
+                    next();
+                }
+            });
+        });
+    }
+}
+
+const init = () => {
     new UploadSingleFile();
     new DownloadFile();
     new UpdateSingleFileContent();
     new DeleteFile();
     new GetFileDetailById();
+    new GetFiles();
 }
+
+init();

@@ -4,7 +4,7 @@ import { Columns, Tracker, Util } from '../chains/';
 import { CREATE_IMPORT_CSV } from './Chain.info';
 import { Chains as FileChains } from '../../File/';
 
-export class CreateImportCSV extends Chain {
+class CreateImportCSV extends Chain {
     constructor() {
         super(CREATE_IMPORT_CSV, (context, param, next) => {
             ExecuteChain([FileChains.DOWNLOAD_FILE, Util.PARSE_RAW_CSV, Tracker.CREATE_IMPORT_TRACKER, Columns.CREATE_IMPORT_COLUMNS], {
@@ -27,3 +27,5 @@ export class CreateImportCSV extends Chain {
 export const init = () => {
     new CreateImportCSV();
 }
+
+init();

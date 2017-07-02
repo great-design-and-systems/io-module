@@ -20,6 +20,10 @@ var _GetUploadedFileContentById = require('./uploaded-file-content/GetUploadedFi
 
 var _GetUploadedFileContentById2 = _interopRequireDefault(_GetUploadedFileContentById);
 
+var _GetUploadedFiles = require('./uploaded-file/GetUploadedFiles');
+
+var _GetUploadedFiles2 = _interopRequireDefault(_GetUploadedFiles);
+
 var _ReadFile = require('./util/ReadFile');
 
 var _ReadFile2 = _interopRequireDefault(_ReadFile);
