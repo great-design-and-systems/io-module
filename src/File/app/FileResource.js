@@ -7,7 +7,7 @@ export default class FileResource {
         resource.get('uploadForm', 'upload-form', (req, res) => {
             res.status(200)
                 .send('<html><body>' +
-                '<form name="upload" method="post" action="api/files/upload-single-file/0001" enctype="multipart/form-data">' +
+                '<form name="upload" method="post" action="/upload-single-file/0001" enctype="multipart/form-data">' +
                 '<input type="file" name="uploadFile">' +
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
@@ -16,7 +16,7 @@ export default class FileResource {
         resource.get('updateForm', 'update-form/:fileId', function (req, res) {
             res.status(200)
                 .send('<html><body>' +
-                '<form name="upload" method="post" action="' + 'http://' + req.headers.host + '/api/files/update-single-file-content/' + req.params.fileId + '" enctype="multipart/form-data">' +
+                '<form name="upload" method="post" action="/update-single-file-content/' + req.params.fileId + '" enctype="multipart/form-data">' +
                 '<input type="file" name="uploadFile">' +
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
@@ -60,7 +60,7 @@ export default class FileResource {
                     }
                 }, (result) => res.status(result.status()).send(result.dto()));
             });
-        
+
         resource.delete(DELETE_FILE, ':fileId', (req, res) => {
             ExecuteChain(DELETE_FILE, {
                 fileId: req.prams.fileId
