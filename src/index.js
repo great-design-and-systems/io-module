@@ -1,7 +1,7 @@
-import { ClusterChains, DatabaseChains, ExpressApp, Logger, LoggerChains, ServerChains } from 'gds-stack';
+import { ClusterChains, DatabaseChains, ExpressApp, GDSDomainResource, Logger, LoggerChains, ServerChains } from 'gds-stack';
 
 import { ExecuteChain } from 'fluid-chains';
-import { IOResource } from './app/';
+import { FileResource } from './app/';
 
 const PORT = process.env.PORT || 5000;
 const DB = process.env.DB || 'io-module-db';
@@ -31,6 +31,8 @@ ExecuteChain([
     }, (result) => {
         if (!result.$err) {
             Logger('IO').info(`Server is connected in port ${PORT}`);
+            const IOResource = new GDSDomainResource(ExpressApp, 'api');
+            new FileResource(IOResource);
             ExpressApp.get('/api', (req, res) => {
                 res.status(200).send(IOResource.getDTO(req));
             });
