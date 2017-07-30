@@ -4,7 +4,6 @@ import { ImportChains, ImportResource } from '../Import/';
 
 const IOResource = new GDSDomainResource(ExpressApp, 'api');
 new FileResource(IOResource);
-new ImportResource(IOResource);
 
 module.exports = {
     FileChains,
