@@ -613,6 +613,10 @@ bluebird@3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.0.5.tgz#2ff9d07c9b3edb29d6d280fe07528365e7ecd392"
 
+bluebird@^3.4.1:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
+
 body-parser@^1.15.2, body-parser@^1.17.2:
   version "1.17.2"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.17.2.tgz#f8892abc8f9e627d42aedafbca66bf5ab99104ee"
@@ -860,6 +864,12 @@ content-type@~1.0.2:
 convert-source-map@^1.1.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.5.0.tgz#9acd70851c6d5dfdd93d9282e5edf94a03ff46b5"
+
+convert-stream@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/convert-stream/-/convert-stream-1.0.2.tgz#152a7f10f4635e2bd000425b1fd025d1f114ff4d"
+  dependencies:
+    bluebird "^3.4.1"
 
 cookie-parser@^1.4.3:
   version "1.4.3"
@@ -1226,7 +1236,7 @@ finalhandler@~1.0.3:
     statuses "~1.3.1"
     unpipe "~1.0.0"
 
-fluid-chains@^0.4.0, fluid-chains@^0.4.2:
+fluid-chains@^0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/fluid-chains/-/fluid-chains-0.4.2.tgz#27bb2b921c197f8b4fb4b281c93f16dd9089e7f8"
   dependencies:
@@ -1382,9 +1392,9 @@ gds-config@^0.2.7:
     nodemon "^1.11.0"
     restler "3.4.0"
 
-gds-stack@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/gds-stack/-/gds-stack-0.1.3.tgz#e8fa5ec1f0d7e0cbacfb5cd340093e6387f8a8f7"
+gds-stack@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/gds-stack/-/gds-stack-0.1.6.tgz#90ac454d331814965eb46052f85050addc6a77eb"
   dependencies:
     batchflow "^0.4.0"
     body-parser "^1.17.2"
@@ -1392,7 +1402,7 @@ gds-stack@^0.1.3:
     connect-multiparty "^2.0.0"
     cookie-parser "^1.4.3"
     express "^4.15.3"
-    fluid-chains "^0.4.2"
+    fluid-chains "^0.5.6"
     http-proxy "^1.16.2"
     lodash "^4.17.4"
     log4js "^1.1.1"
@@ -2078,13 +2088,9 @@ mime-types@~2.0.3:
   dependencies:
     mime-db "~1.12.0"
 
-mime@1.3.4:
+mime@1.3.4, mime@~1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
-
-mime@~1.3.4:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.6.tgz#591d84d3653a6b0b4a3b9df8de5aa8108e72e5e0"
 
 minimatch@^3.0.0, minimatch@^3.0.2, minimatch@~3.0.2:
   version "3.0.4"

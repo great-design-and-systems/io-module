@@ -1,4 +1,4 @@
-import { DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
+import { COPY_FILE_FROM_URL, DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 
 import { ExecuteChain } from 'fluid-chains';
 
@@ -20,6 +20,15 @@ export default class FileResource {
                 '<input type="file" name="uploadFile">' +
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
+        });
+
+        resource.post(COPY_FILE_FROM_URL, 'copy-file-from-url', (req, res) => {
+            const fileName = req.query.fileName;
+            const fileURL = req.query.fileUrl;
+            const createdBy = 'SYSTEM';
+            ExecuteChain(COPY_FILE_FROM_URL, {
+                fileName, fileURL, createdBy
+            }, result => res.status(result.status()).send(result.dto()));
         });
 
         resource.post(UPLOAD_SINGLE_FILE, 'upload-single-file/:userId', (req, res) => {

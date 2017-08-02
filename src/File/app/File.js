@@ -1,5 +1,5 @@
+import { COPY_FILE_FROM_URL, DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 import { Chain, ChainMiddleware, ExecuteChain } from 'fluid-chains';
-import { DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 import { UploadedFile, UploadedFileContent, Util } from '../chains/';
 
 import { GDSDomainDTO } from 'gds-config';
@@ -163,6 +163,34 @@ class GetFiles extends Chain {
     }
 }
 
+class CopyFileFromUrl extends Chain {
+    constructor() {
+        super(COPY_FILE_FROM_URL, (context, param, next) => {
+            ExecuteChain([Util.GET_FILE_INFO_FROM_URL,
+            UploadedFile.CREATE_UPLOADED_FILE,
+            Util.GET_FILE_BUFFER_FROM_URL,
+            UploadedFileContent.CREATE_UPLOADED_FILE_CONTENT
+            ], {
+                    fileName: param.fileName(),
+                    fileURL: param.fileURL(),
+                    createdBy: param.createdBy()
+                }, result => {
+                    if (result.$err) {
+                        context.set('status', 500);
+                        context.set('dto', new GDSDomainDTO('ERROR_' + COPY_FILE_FROM_URL, result.$errorMessage()));
+                        next();
+                    } else {
+                        context.set('status', 200);
+                        context.set('dto', new GDSDomainDTO(COPY_FILE_FROM_URL, { fileId: result.fileId(), fileContentId: result.fileContentId() }));
+                        next();
+                    }
+                });
+        });
+        this.addSpec('fileName').require();
+        this.addSpec('createdBy').require();
+        this.addSpec('fileURL').require();
+    }
+}
 const init = () => {
     new UploadSingleFile();
     new DownloadFile();
@@ -170,6 +198,7 @@ const init = () => {
     new DeleteFile();
     new GetFileDetailById();
     new GetFiles();
+    new CopyFileFromUrl();
 }
 
 init();
