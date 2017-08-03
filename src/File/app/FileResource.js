@@ -1,4 +1,4 @@
-import { COPY_FILE_FROM_URL, DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
+import { ATTACH_FILE_TO_USER, COPY_FILE_FROM_URL, DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 
 import { ExecuteChain } from 'fluid-chains';
 
@@ -12,7 +12,6 @@ export default class FileResource {
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
         });
-
         resource.get('updateForm', 'update-form/:fileId', function (req, res) {
             res.status(200)
                 .send('<html><body>' +
@@ -21,7 +20,6 @@ export default class FileResource {
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
         });
-
         resource.post(COPY_FILE_FROM_URL, 'copy-file-from-url', (req, res) => {
             const fileName = req.body.fileName;
             const fileURL = req.body.fileURL;
@@ -31,7 +29,6 @@ export default class FileResource {
             }, result => { res.status(result.status()).send(result.dto()) });
 
         });
-
         resource.post(UPLOAD_SINGLE_FILE, 'upload-single-file/:userId', (req, res) => {
             const file = req.files.uploadFile;
             ExecuteChain(UPLOAD_SINGLE_FILE, {
@@ -42,7 +39,6 @@ export default class FileResource {
                 createdBy: req.params.userId
             }, result => res.status(result.status()).send(result.dto()));
         });
-
         resource.get(DOWNLOAD_FILE, 'download-file/:fileId', (req, res) => {
             ExecuteChain(DOWNLOAD_FILE, {
                 fileId: req.params.fileId
@@ -57,7 +53,6 @@ export default class FileResource {
                 }
             });
         });
-
         resource.post(UPDATE_SINGLE_FILE_CONTENT, 'update-single-file-content/:fileId',
             (req, res) => {
                 const file = req.files.uploadFile;
@@ -70,11 +65,9 @@ export default class FileResource {
                     }
                 }, (result) => res.status(result.status()).send(result.dto()));
             });
-
-
         resource.delete(DELETE_FILE, ':fileId', (req, res) => {
             ExecuteChain(DELETE_FILE, {
-                fileId: req.prams.fileId
+                fileId: req.params.fileId
             }, (result) => res.status(result.status()).send(result.dto()));
         });
         resource.get(GET_FILE_DETAIL_BY_ID, 'get-file-detail-by-id/:fileId', (req, res) => {
@@ -84,6 +77,12 @@ export default class FileResource {
         });
         resource.get(GET_FILES, 'get-files', (req, res) => {
             ExecuteChain(GET_FILES, {
+            }, (result) => res.status(result.status()).send(result.dto()));
+        });
+        resource.put(ATTACH_FILE_TO_USER, 'attach-file/:fileId/:user', (req, res) => {
+            ExecuteChain(ATTACH_FILE_TO_USER, {
+                fileId: req.params.fileId,
+                usedBy: req.params.user
             }, (result) => res.status(result.status()).send(result.dto()));
         });
     }

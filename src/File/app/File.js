@@ -1,4 +1,4 @@
-import { COPY_FILE_FROM_URL, DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
+import { ATTACH_FILE_TO_USER, COPY_FILE_FROM_URL, DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DETAIL_BY_ID, UPDATE_SINGLE_FILE_CONTENT, UPLOAD_SINGLE_FILE } from './Chain.info';
 import { Chain, ChainMiddleware, ExecuteChain } from 'fluid-chains';
 import { UploadedFile, UploadedFileContent, Util } from '../chains/';
 
@@ -192,6 +192,31 @@ class CopyFileFromUrl extends Chain {
         this.addSpec('fileURL').require();
     }
 }
+
+class AttachFileToUser extends Chain {
+    constructor() {
+        super(ATTACH_FILE_TO_USER, (context, param, next) => {
+            ExecuteChain(UploadedFile.UPDATE_UPLOADED_FILE_BY_ID, {
+                fileId: param.fileId(),
+                uploadedFileInputUpdate: {
+                    usedBy: param.usedBy()
+                }
+            }, result => {
+                if (result.$err) {
+                    context.set('status', 500);
+                    context.set('dto', new GDSDomainDTO('ERROR_' + ATTACH_FILE_TO_USER, result.$errorMessage()));
+                    next();
+                } else {
+                    context.set('status', 200);
+                    context.set('dto', new GDSDomainDTO(ATTACH_FILE_TO_USER, { fileId: param.fileId(), message: 'Updated' }));
+                    next();
+                }
+            });
+        });
+        this.addSpec('usedBy').require();
+        this.addSpec('fileId').require();
+    }
+}
 const init = () => {
     new UploadSingleFile();
     new DownloadFile();
@@ -200,6 +225,7 @@ const init = () => {
     new GetFileDetailById();
     new GetFiles();
     new CopyFileFromUrl();
+    new AttachFileToUser();
 }
 
 init();

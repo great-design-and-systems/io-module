@@ -5,6 +5,7 @@ const uploadedFileScheme = new mongoose.Schema({
     fileType: { type: String, required: [true, 'File type is required.'] },
     fileSize: { type: Number, required: [true, 'File size is required.'] },
     createdBy: { type: String, required: [true, 'CreatedBy is required.'] },
+    usedBy: { type: String },
     updatedBy: String,
     updatedOn: Date,
     createdOn: { type: Date, default: Date.now }
