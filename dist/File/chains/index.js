@@ -12,6 +12,14 @@ var _FileErrorHandler = require('./util/FileErrorHandler');
 
 var _FileErrorHandler2 = _interopRequireDefault(_FileErrorHandler);
 
+var _GetFileBufferFromURL = require('./util/GetFileBufferFromURL');
+
+var _GetFileBufferFromURL2 = _interopRequireDefault(_GetFileBufferFromURL);
+
+var _GetFileInfoFromURL = require('./util/GetFileInfoFromURL');
+
+var _GetFileInfoFromURL2 = _interopRequireDefault(_GetFileInfoFromURL);
+
 var _GetUploadedFileById = require('./uploaded-file/GetUploadedFileById');
 
 var _GetUploadedFileById2 = _interopRequireDefault(_GetUploadedFileById);

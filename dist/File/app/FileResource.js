@@ -11,18 +11,18 @@ var _fluidChains = require('fluid-chains');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var API = 'files/';
+
 var FileResource = function FileResource(resource) {
     _classCallCheck(this, FileResource);
 
-    resource.get('uploadForm', 'upload-form', function (req, res) {
+    resource.get('uploadForm', API + 'upload-form', function (req, res) {
         res.status(200).send('<html><body>' + '<form name="upload" method="post" action="upload-single-file/0001" enctype="multipart/form-data">' + '<input type="file" name="uploadFile">' + '<input type="submit" value="Submit">' + '</form></body></html>');
     });
-
-    resource.get('updateForm', 'update-form/:fileId', function (req, res) {
+    resource.get('updateForm', API + 'update-form/:fileId', function (req, res) {
         res.status(200).send('<html><body>' + '<form name="upload" method="post" action="update-single-file-content/' + req.params.fileId + '" enctype="multipart/form-data">' + '<input type="file" name="uploadFile">' + '<input type="submit" value="Submit">' + '</form></body></html>');
     });
-
-    resource.post(_Chain.COPY_FILE_FROM_URL, 'copy-file-from-url', function (req, res) {
+    resource.post(_Chain.COPY_FILE_FROM_URL, API + 'copy-file-from-url', function (req, res) {
         var fileName = req.body.fileName;
         var fileURL = req.body.fileURL;
         var createdBy = 'SYSTEM';
@@ -32,8 +32,7 @@ var FileResource = function FileResource(resource) {
             res.status(result.status()).send(result.dto());
         });
     });
-
-    resource.post(_Chain.UPLOAD_SINGLE_FILE, 'upload-single-file/:userId', function (req, res) {
+    resource.post(_Chain.UPLOAD_SINGLE_FILE, API + 'upload-single-file/:userId', function (req, res) {
         var file = req.files.uploadFile;
         (0, _fluidChains.ExecuteChain)(_Chain.UPLOAD_SINGLE_FILE, {
             fileType: file.type,
@@ -45,8 +44,7 @@ var FileResource = function FileResource(resource) {
             return res.status(result.status()).send(result.dto());
         });
     });
-
-    resource.get(_Chain.DOWNLOAD_FILE, 'download-file/:fileId', function (req, res) {
+    resource.get(_Chain.DOWNLOAD_FILE, API + 'download-file/:fileId', function (req, res) {
         (0, _fluidChains.ExecuteChain)(_Chain.DOWNLOAD_FILE, {
             fileId: req.params.fileId
         }, function (result) {
@@ -60,8 +58,7 @@ var FileResource = function FileResource(resource) {
             }
         });
     });
-
-    resource.post(_Chain.UPDATE_SINGLE_FILE_CONTENT, 'update-single-file-content/:fileId', function (req, res) {
+    resource.post(_Chain.UPDATE_SINGLE_FILE_CONTENT, API + 'update-single-file-content/:fileId', function (req, res) {
         var file = req.files.uploadFile;
         (0, _fluidChains.ExecuteChain)(_Chain.UPDATE_SINGLE_FILE_CONTENT, {
             fileId: req.params.fileId,
@@ -74,23 +71,30 @@ var FileResource = function FileResource(resource) {
             return res.status(result.status()).send(result.dto());
         });
     });
-
-    resource.delete(_Chain.DELETE_FILE, ':fileId', function (req, res) {
+    resource.delete(_Chain.DELETE_FILE, API + ':fileId', function (req, res) {
         (0, _fluidChains.ExecuteChain)(_Chain.DELETE_FILE, {
-            fileId: req.prams.fileId
+            fileId: req.params.fileId
         }, function (result) {
             return res.status(result.status()).send(result.dto());
         });
     });
-    resource.get(_Chain.GET_FILE_DETAIL_BY_ID, 'get-file-detail-by-id/:fileId', function (req, res) {
+    resource.get(_Chain.GET_FILE_DETAIL_BY_ID, API + 'get-file-detail-by-id/:fileId', function (req, res) {
         (0, _fluidChains.ExecuteChain)(_Chain.GET_FILE_DETAIL_BY_ID, {
             fileId: req.params.fileId
         }, function (result) {
             return res.status(result.status()).send(result.dto());
         });
     });
-    resource.get(_Chain.GET_FILES, 'get-files', function (req, res) {
+    resource.get(_Chain.GET_FILES, API + 'get-files', function (req, res) {
         (0, _fluidChains.ExecuteChain)(_Chain.GET_FILES, {}, function (result) {
+            return res.status(result.status()).send(result.dto());
+        });
+    });
+    resource.put(_Chain.ATTACH_FILE_TO_USER, API + 'attach-file/:fileId/:user', function (req, res) {
+        (0, _fluidChains.ExecuteChain)(_Chain.ATTACH_FILE_TO_USER, {
+            fileId: req.params.fileId,
+            usedBy: req.params.user
+        }, function (result) {
             return res.status(result.status()).send(result.dto());
         });
     });

@@ -1,8 +1,8 @@
 'use strict';
 
-var _Chain = require('./Chain.info');
-
 var _fluidChains = require('fluid-chains');
+
+var _Chain = require('./Chain.info');
 
 var _convertStream = require('convert-stream');
 
@@ -20,7 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var PROXY = process.env.PROXY;
 
-var GetFileBufferFromURLChain = new _fluidChains.chain(_Chain.GET_FILE_BUFFER_FROM_URL, function (context, param, next) {
+var GetFileBufferFromURLChain = new _fluidChains.Chain(_Chain.GET_FILE_BUFFER_FROM_URL, function (context, param, next) {
     var url = param.fileURL();
     var fileId = param.fileId();
     var getRequest = _unirest2.default.get(url);
@@ -29,19 +29,22 @@ var GetFileBufferFromURLChain = new _fluidChains.chain(_Chain.GET_FILE_BUFFER_FR
     if (PROXY) {
         getRequest.proxy(PROXY);
     }
-    try {
-        console.log('downloading...', url);
-        getRequest.end().pipe(writeStream);
-        writeStream.on('finish', function () {
-            _convertStream2.default.toBuffer(_nodeFs2.default.createReadStream(filename)).then(function (fileData) {
-                context.set('fileData', fileData);
-                next();
-            });
+    getRequest.end().pipe(writeStream);
+    writeStream.on('finish', function () {
+        _convertStream2.default.toBuffer(_nodeFs2.default.createReadStream(filename)).then(function (fileData) {
+            context.set('fileData', fileData);
+            context.set('fileId', param.fileId ? param.fileId() : undefined);
+            _nodeFs2.default.unlink(filename);
+            next();
+        }).catch(function (err) {
+            _nodeFs2.default.unlink(filename);
+            next(err);
         });
-    } catch (err) {
-        console.log('downloading failed', err);
+    });
+    writeStream.on('error', function (err) {
+        _nodeFs2.default.unlink(filename);
         next(err);
-    }
+    });
 });
 
 GetFileBufferFromURLChain.addSpec('fileURL').require();
