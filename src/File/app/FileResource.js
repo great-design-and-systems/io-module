@@ -5,7 +5,7 @@ import { ExecuteChain } from 'fluid-chains';
 const API = 'files/';
 export default class FileResource {
     constructor(resource) {
-        resource.get('uploadForm', `${files}upload-form`, (req, res) => {
+        resource.get('uploadForm', `${API}upload-form`, (req, res) => {
             res.status(200)
                 .send('<html><body>' +
                 '<form name="upload" method="post" action="upload-single-file/0001" enctype="multipart/form-data">' +
@@ -13,7 +13,7 @@ export default class FileResource {
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
         });
-        resource.get('updateForm', `${files}update-form/:fileId`, function (req, res) {
+        resource.get('updateForm', `${API}update-form/:fileId`, function (req, res) {
             res.status(200)
                 .send('<html><body>' +
                 '<form name="upload" method="post" action="update-single-file-content/' + req.params.fileId + '" enctype="multipart/form-data">' +
@@ -21,7 +21,7 @@ export default class FileResource {
                 '<input type="submit" value="Submit">' +
                 '</form></body></html>');
         });
-        resource.post(COPY_FILE_FROM_URL, `${files}copy-file-from-url`, (req, res) => {
+        resource.post(COPY_FILE_FROM_URL, `${API}copy-file-from-url`, (req, res) => {
             const fileName = req.body.fileName;
             const fileURL = req.body.fileURL;
             const createdBy = 'SYSTEM';
@@ -30,7 +30,7 @@ export default class FileResource {
             }, result => { res.status(result.status()).send(result.dto()) });
 
         });
-        resource.post(UPLOAD_SINGLE_FILE, `${files}upload-single-file/:userId`, (req, res) => {
+        resource.post(UPLOAD_SINGLE_FILE, `${API}upload-single-file/:userId`, (req, res) => {
             const file = req.files.uploadFile;
             ExecuteChain(UPLOAD_SINGLE_FILE, {
                 fileType: file.type,
@@ -40,7 +40,7 @@ export default class FileResource {
                 createdBy: req.params.userId
             }, result => res.status(result.status()).send(result.dto()));
         });
-        resource.get(DOWNLOAD_FILE, `${files}download-file/:fileId`, (req, res) => {
+        resource.get(DOWNLOAD_FILE, `${API}download-file/:fileId`, (req, res) => {
             ExecuteChain(DOWNLOAD_FILE, {
                 fileId: req.params.fileId
             }, result => {
@@ -54,7 +54,7 @@ export default class FileResource {
                 }
             });
         });
-        resource.post(UPDATE_SINGLE_FILE_CONTENT, `${files}update-single-file-content/:fileId`,
+        resource.post(UPDATE_SINGLE_FILE_CONTENT, `${API}update-single-file-content/:fileId`,
             (req, res) => {
                 const file = req.files.uploadFile;
                 ExecuteChain(UPDATE_SINGLE_FILE_CONTENT, {
@@ -66,21 +66,21 @@ export default class FileResource {
                     }
                 }, (result) => res.status(result.status()).send(result.dto()));
             });
-        resource.delete(DELETE_FILE, `${files}:fileId`, (req, res) => {
+        resource.delete(DELETE_FILE, `${API}:fileId`, (req, res) => {
             ExecuteChain(DELETE_FILE, {
                 fileId: req.params.fileId
             }, (result) => res.status(result.status()).send(result.dto()));
         });
-        resource.get(GET_FILE_DETAIL_BY_ID, `${files}get-file-detail-by-id/:fileId`, (req, res) => {
+        resource.get(GET_FILE_DETAIL_BY_ID, `${API}get-file-detail-by-id/:fileId`, (req, res) => {
             ExecuteChain(GET_FILE_DETAIL_BY_ID, {
                 fileId: req.params.fileId
             }, (result) => res.status(result.status()).send(result.dto()));
         });
-        resource.get(GET_FILES, `${files}get-files`, (req, res) => {
+        resource.get(GET_FILES, `${API}get-files`, (req, res) => {
             ExecuteChain(GET_FILES, {
             }, (result) => res.status(result.status()).send(result.dto()));
         });
-        resource.put(ATTACH_FILE_TO_USER, `${files}attach-file/:fileId/:user`, (req, res) => {
+        resource.put(ATTACH_FILE_TO_USER, `${API}attach-file/:fileId/:user`, (req, res) => {
             ExecuteChain(ATTACH_FILE_TO_USER, {
                 fileId: req.params.fileId,
                 usedBy: req.params.user
