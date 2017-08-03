@@ -1,10 +1,10 @@
+import { Chain } from 'fluid-chains';
 import { GET_FILE_INFO_FROM_URL } from './Chain.info';
-import { chain } from 'fluid-chains';
 import unirest from 'unirest';
 
 const PROXY = process.env.PROXY;
 
-const GetFileInfoFromURLChain = new chain(GET_FILE_INFO_FROM_URL, (context, param, next) => {
+const GetFileInfoFromURLChain = new Chain(GET_FILE_INFO_FROM_URL, (context, param, next) => {
     const url = param.fileURL();
     const headerRequest = unirest.head(url);
     if (PROXY) {

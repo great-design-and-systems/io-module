@@ -23,12 +23,13 @@ export default class FileResource {
         });
 
         resource.post(COPY_FILE_FROM_URL, 'copy-file-from-url', (req, res) => {
-            const fileName = req.query.fileName;
-            const fileURL = req.query.fileUrl;
+            const fileName = req.body.fileName;
+            const fileURL = req.body.fileURL;
             const createdBy = 'SYSTEM';
             ExecuteChain(COPY_FILE_FROM_URL, {
                 fileName, fileURL, createdBy
-            }, result => res.status(result.status()).send(result.dto()));
+            }, result => { res.status(result.status()).send(result.dto()) });
+
         });
 
         resource.post(UPLOAD_SINGLE_FILE, 'upload-single-file/:userId', (req, res) => {
@@ -70,18 +71,17 @@ export default class FileResource {
                 }, (result) => res.status(result.status()).send(result.dto()));
             });
 
+
         resource.delete(DELETE_FILE, ':fileId', (req, res) => {
             ExecuteChain(DELETE_FILE, {
                 fileId: req.prams.fileId
             }, (result) => res.status(result.status()).send(result.dto()));
         });
-
         resource.get(GET_FILE_DETAIL_BY_ID, 'get-file-detail-by-id/:fileId', (req, res) => {
             ExecuteChain(GET_FILE_DETAIL_BY_ID, {
                 fileId: req.params.fileId
             }, (result) => res.status(result.status()).send(result.dto()));
         });
-
         resource.get(GET_FILES, 'get-files', (req, res) => {
             ExecuteChain(GET_FILES, {
             }, (result) => res.status(result.status()).send(result.dto()));

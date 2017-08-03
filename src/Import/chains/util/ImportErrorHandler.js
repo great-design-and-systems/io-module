@@ -1,9 +1,9 @@
 import { Chain } from 'fluid-chains';
-import { GDSAppLogger } from 'gds-config';
 import { IMPORT_ERROR_HANDLER } from './Chain.info';
+import { Logger } from 'gds-stack';
 
 const Action = (context, param, next) => {
-    new GDSAppLogger('ERROR: ' + param.$errorFrom() + ': ' + param.$errorMessage())
+    new Logger('ERROR: ' + param.$owner() + ': ' + param.$errorMessage())
         .error();
     next();
 }

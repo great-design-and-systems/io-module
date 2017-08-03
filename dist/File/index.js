@@ -1,5 +1,20 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _app = require('./app/');
 
-module.exports = { FileResource: _app.FileResource, Chains: _app.Chains, initChains: _app.initChains };
+Object.defineProperty(exports, 'FileChains', {
+  enumerable: true,
+  get: function get() {
+    return _app.FileChains;
+  }
+});
+Object.defineProperty(exports, 'FileResource', {
+  enumerable: true,
+  get: function get() {
+    return _app.FileResource;
+  }
+});

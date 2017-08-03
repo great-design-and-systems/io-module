@@ -2,7 +2,7 @@ import { COPY_FILE_FROM_URL, DELETE_FILE, DOWNLOAD_FILE, GET_FILES, GET_FILE_DET
 import { Chain, ChainMiddleware, ExecuteChain } from 'fluid-chains';
 import { UploadedFile, UploadedFileContent, Util } from '../chains/';
 
-import { GDSDomainDTO } from 'gds-config';
+import { GDSDomainDTO } from 'gds-stack';
 
 class UploadSingleFile extends Chain {
     constructor() {
@@ -166,11 +166,12 @@ class GetFiles extends Chain {
 class CopyFileFromUrl extends Chain {
     constructor() {
         super(COPY_FILE_FROM_URL, (context, param, next) => {
-            ExecuteChain([Util.GET_FILE_INFO_FROM_URL,
-            UploadedFile.CREATE_UPLOADED_FILE,
-            Util.GET_FILE_BUFFER_FROM_URL,
-            UploadedFileContent.CREATE_UPLOADED_FILE_CONTENT
-            ], {
+            ExecuteChain(
+                [Util.GET_FILE_INFO_FROM_URL,
+                UploadedFile.CREATE_UPLOADED_FILE,
+                Util.GET_FILE_BUFFER_FROM_URL,
+                UploadedFileContent.CREATE_UPLOADED_FILE_CONTENT],
+                {
                     fileName: param.fileName(),
                     fileURL: param.fileURL(),
                     createdBy: param.createdBy()

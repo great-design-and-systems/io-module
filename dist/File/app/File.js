@@ -1,17 +1,12 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.init = exports.GetFiles = exports.GetFileDetailById = exports.DeleteFile = exports.UpdateSingleFileContent = exports.DownloadFile = exports.UploadSingleFile = undefined;
+var _Chain8 = require('./Chain.info');
 
 var _fluidChains = require('fluid-chains');
 
-var _Chain7 = require('./Chain.info');
-
 var _chains = require('../chains/');
 
-var _gdsConfig = require('gds-config');
+var _gdsStack = require('gds-stack');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -19,13 +14,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UploadSingleFile = exports.UploadSingleFile = function (_Chain) {
+var UploadSingleFile = function (_Chain) {
     _inherits(UploadSingleFile, _Chain);
 
     function UploadSingleFile() {
         _classCallCheck(this, UploadSingleFile);
 
-        var _this = _possibleConstructorReturn(this, (UploadSingleFile.__proto__ || Object.getPrototypeOf(UploadSingleFile)).call(this, _Chain7.UPLOAD_SINGLE_FILE, function (context, param, next) {
+        var _this = _possibleConstructorReturn(this, (UploadSingleFile.__proto__ || Object.getPrototypeOf(UploadSingleFile)).call(this, _Chain8.UPLOAD_SINGLE_FILE, function (context, param, next) {
             (0, _fluidChains.ExecuteChain)([_chains.UploadedFile.CREATE_UPLOADED_FILE, _chains.Util.READ_FILE, _chains.UploadedFileContent.CREATE_UPLOADED_FILE_CONTENT, _chains.Util.REMOVE_FILE, _chains.UploadedFile.GET_UPLOADED_FILE_BY_ID], {
                 fileName: param.fileName(),
                 fileType: param.fileType(),
@@ -35,11 +30,11 @@ var UploadSingleFile = exports.UploadSingleFile = function (_Chain) {
             }, function (result) {
                 if (result.$err) {
                     context.set('status', 500);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO('ERROR_' + _Chain7.UPLOAD_SINGLE_FILE, result.$errorMessage()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO('ERROR_' + _Chain8.UPLOAD_SINGLE_FILE, result.$errorMessage()));
                     next();
                 } else {
                     context.set('status', 200);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO(_Chain7.UPLOAD_SINGLE_FILE, result.uploadedFile()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO(_Chain8.UPLOAD_SINGLE_FILE, result.uploadedFile()));
                     next();
                 }
             });
@@ -56,17 +51,17 @@ var UploadSingleFile = exports.UploadSingleFile = function (_Chain) {
     return UploadSingleFile;
 }(_fluidChains.Chain);
 
-var DownloadFile = exports.DownloadFile = function (_Chain2) {
+var DownloadFile = function (_Chain2) {
     _inherits(DownloadFile, _Chain2);
 
     function DownloadFile() {
         _classCallCheck(this, DownloadFile);
 
-        var _this2 = _possibleConstructorReturn(this, (DownloadFile.__proto__ || Object.getPrototypeOf(DownloadFile)).call(this, _Chain7.DOWNLOAD_FILE, function (context, param, next) {
+        var _this2 = _possibleConstructorReturn(this, (DownloadFile.__proto__ || Object.getPrototypeOf(DownloadFile)).call(this, _Chain8.DOWNLOAD_FILE, function (context, param, next) {
             (0, _fluidChains.ExecuteChain)([_chains.UploadedFileContent.GET_UPLOADED_FILE_CONTENT_BY_ID], { fileId: param.fileId() }, function (result) {
                 if (result.$err) {
                     context.set('status', 500);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO('ERROR_' + _Chain7.DOWNLOAD_FILE, result.$errorMessage()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO('ERROR_' + _Chain8.DOWNLOAD_FILE, result.$errorMessage()));
                     next();
                 } else {
                     (0, _fluidChains.ExecuteChain)(_chains.UploadedFile.GET_UPLOADED_FILE_BY_ID, {
@@ -95,13 +90,13 @@ var DownloadFile = exports.DownloadFile = function (_Chain2) {
     return DownloadFile;
 }(_fluidChains.Chain);
 
-var UpdateSingleFileContent = exports.UpdateSingleFileContent = function (_Chain3) {
+var UpdateSingleFileContent = function (_Chain3) {
     _inherits(UpdateSingleFileContent, _Chain3);
 
     function UpdateSingleFileContent() {
         _classCallCheck(this, UpdateSingleFileContent);
 
-        var _this3 = _possibleConstructorReturn(this, (UpdateSingleFileContent.__proto__ || Object.getPrototypeOf(UpdateSingleFileContent)).call(this, _Chain7.UPDATE_SINGLE_FILE_CONTENT, function (context, param, next) {
+        var _this3 = _possibleConstructorReturn(this, (UpdateSingleFileContent.__proto__ || Object.getPrototypeOf(UpdateSingleFileContent)).call(this, _Chain8.UPDATE_SINGLE_FILE_CONTENT, function (context, param, next) {
             (0, _fluidChains.ExecuteChain)([_chains.Util.READ_FILE, _chains.UploadedFileContent.UPDATE_UPLOADED_FILE_CONTENT_BY_ID, _chains.Util.REMOVE_FILE, _chains.UploadedFile.UPDATE_UPLOADED_FILE_BY_ID], {
                 fileId: param.fileId(),
                 uploadedFileInputUpdate: param.uploadedFileInputUpdate(),
@@ -109,11 +104,11 @@ var UpdateSingleFileContent = exports.UpdateSingleFileContent = function (_Chain
             }, function (result) {
                 if (result.$err) {
                     context.set('status', 500);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO('ERROR_' + _Chain7.UPDATE_SINGLE_FILE_CONTENT, result.$errorMessage()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO('ERROR_' + _Chain8.UPDATE_SINGLE_FILE_CONTENT, result.$errorMessage()));
                     next();
                 } else {
                     context.set('status', 200);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO(_Chain7.UPDATE_SINGLE_FILE_CONTENT, "File update completed."));
+                    context.set('dto', new _gdsStack.GDSDomainDTO(_Chain8.UPDATE_SINGLE_FILE_CONTENT, "File update completed."));
                     next();
                 }
             });
@@ -128,23 +123,23 @@ var UpdateSingleFileContent = exports.UpdateSingleFileContent = function (_Chain
     return UpdateSingleFileContent;
 }(_fluidChains.Chain);
 
-var DeleteFile = exports.DeleteFile = function (_Chain4) {
+var DeleteFile = function (_Chain4) {
     _inherits(DeleteFile, _Chain4);
 
     function DeleteFile() {
         _classCallCheck(this, DeleteFile);
 
-        var _this4 = _possibleConstructorReturn(this, (DeleteFile.__proto__ || Object.getPrototypeOf(DeleteFile)).call(this, _Chain7.DELETE_FILE, function (context, param, next) {
+        var _this4 = _possibleConstructorReturn(this, (DeleteFile.__proto__ || Object.getPrototypeOf(DeleteFile)).call(this, _Chain8.DELETE_FILE, function (context, param, next) {
             (0, _fluidChains.ExecuteChain)([_chains.UploadedFileContent.REMOVE_UPLOADED_FILE_CONTENT_BY_ID, _chains.UploadedFile.REMOVE_UPLOADED_FILE], {
                 fileId: param.fileId()
             }, function (result) {
                 if (result.$err) {
                     context.set('status', 500);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO('ERROR_' + _Chain7.DELETE_FILE, result.$errorMessage()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO('ERROR_' + _Chain8.DELETE_FILE, result.$errorMessage()));
                     next();
                 } else {
                     context.set('status', 200);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO(_Chain7.DELETE_FILE, 'File with id: ' + param.fileId() + ' have been removed.'));
+                    context.set('dto', new _gdsStack.GDSDomainDTO(_Chain8.DELETE_FILE, 'File with id: ' + param.fileId() + ' have been removed.'));
                     next();
                 }
             });
@@ -157,23 +152,23 @@ var DeleteFile = exports.DeleteFile = function (_Chain4) {
     return DeleteFile;
 }(_fluidChains.Chain);
 
-var GetFileDetailById = exports.GetFileDetailById = function (_Chain5) {
+var GetFileDetailById = function (_Chain5) {
     _inherits(GetFileDetailById, _Chain5);
 
     function GetFileDetailById() {
         _classCallCheck(this, GetFileDetailById);
 
-        var _this5 = _possibleConstructorReturn(this, (GetFileDetailById.__proto__ || Object.getPrototypeOf(GetFileDetailById)).call(this, _Chain7.GET_FILE_DETAIL_BY_ID, function (context, param, next) {
+        var _this5 = _possibleConstructorReturn(this, (GetFileDetailById.__proto__ || Object.getPrototypeOf(GetFileDetailById)).call(this, _Chain8.GET_FILE_DETAIL_BY_ID, function (context, param, next) {
             (0, _fluidChains.ExecuteChain)(_chains.UploadedFile.GET_UPLOADED_FILE_BY_ID, {
                 fileId: param.fileId()
             }, function (result) {
                 if (result.$err) {
                     context.set('status', 500);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO('ERROR_' + _Chain7.GET_FILE_DETAIL_BY_ID, result.$errorMessage()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO('ERROR_' + _Chain8.GET_FILE_DETAIL_BY_ID, result.$errorMessage()));
                     next();
                 } else {
                     context.set('status', 200);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO(_Chain7.GET_FILE_DETAIL_BY_ID, result.uploadedFile()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO(_Chain8.GET_FILE_DETAIL_BY_ID, result.uploadedFile()));
                     next();
                 }
             });
@@ -186,21 +181,21 @@ var GetFileDetailById = exports.GetFileDetailById = function (_Chain5) {
     return GetFileDetailById;
 }(_fluidChains.Chain);
 
-var GetFiles = exports.GetFiles = function (_Chain6) {
+var GetFiles = function (_Chain6) {
     _inherits(GetFiles, _Chain6);
 
     function GetFiles() {
         _classCallCheck(this, GetFiles);
 
-        return _possibleConstructorReturn(this, (GetFiles.__proto__ || Object.getPrototypeOf(GetFiles)).call(this, _Chain7.GET_FILES, function (context, param, next) {
+        return _possibleConstructorReturn(this, (GetFiles.__proto__ || Object.getPrototypeOf(GetFiles)).call(this, _Chain8.GET_FILES, function (context, param, next) {
             (0, _fluidChains.ExecuteChain)(_chains.UploadedFile.GET_UPLOADED_FILES, {}, function (result) {
                 if (result.$err) {
                     context.set('status', 500);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO('ERROR_' + _Chain7.GET_FILES, result.$errorMessage()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO('ERROR_' + _Chain8.GET_FILES, result.$errorMessage()));
                     next();
                 } else {
                     context.set('status', 200);
-                    context.set('dto', new _gdsConfig.GDSDomainDTO(_Chain7.GET_FILES, result.files()));
+                    context.set('dto', new _gdsStack.GDSDomainDTO(_Chain8.GET_FILES, result.files()));
                     next();
                 }
             });
@@ -210,11 +205,48 @@ var GetFiles = exports.GetFiles = function (_Chain6) {
     return GetFiles;
 }(_fluidChains.Chain);
 
-var init = exports.init = function init() {
+var CopyFileFromUrl = function (_Chain7) {
+    _inherits(CopyFileFromUrl, _Chain7);
+
+    function CopyFileFromUrl() {
+        _classCallCheck(this, CopyFileFromUrl);
+
+        var _this7 = _possibleConstructorReturn(this, (CopyFileFromUrl.__proto__ || Object.getPrototypeOf(CopyFileFromUrl)).call(this, _Chain8.COPY_FILE_FROM_URL, function (context, param, next) {
+            (0, _fluidChains.ExecuteChain)([_chains.Util.GET_FILE_INFO_FROM_URL, _chains.UploadedFile.CREATE_UPLOADED_FILE, _chains.Util.GET_FILE_BUFFER_FROM_URL, _chains.UploadedFileContent.CREATE_UPLOADED_FILE_CONTENT], {
+                fileName: param.fileName(),
+                fileURL: param.fileURL(),
+                createdBy: param.createdBy()
+            }, function (result) {
+                console.log('result->', result);
+                if (result.$err) {
+                    context.set('status', 500);
+                    context.set('dto', new _gdsStack.GDSDomainDTO('ERROR_' + _Chain8.COPY_FILE_FROM_URL, result.$errorMessage()));
+                    next();
+                } else {
+                    context.set('status', 200);
+                    context.set('dto', new _gdsStack.GDSDomainDTO(_Chain8.COPY_FILE_FROM_URL, { fileId: result.fileId(), fileContentId: result.fileContentId() }));
+                    next();
+                }
+            });
+        }));
+
+        _this7.addSpec('fileName').require();
+        _this7.addSpec('createdBy').require();
+        _this7.addSpec('fileURL').require();
+        return _this7;
+    }
+
+    return CopyFileFromUrl;
+}(_fluidChains.Chain);
+
+var init = function init() {
     new UploadSingleFile();
     new DownloadFile();
     new UpdateSingleFileContent();
     new DeleteFile();
     new GetFileDetailById();
     new GetFiles();
+    new CopyFileFromUrl();
 };
+
+init();
